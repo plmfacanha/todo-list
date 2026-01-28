@@ -21,6 +21,7 @@
 
   /* Layout */
   --max-width: 1100px;
+  --spacing-small: 0.5rem;
   --spacing: 1rem;
 }
 
@@ -138,4 +139,12 @@ select {
 
 button {
   cursor: pointer;
+}
+footer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-small);
+
+  color: var(--color-light);
+  background-color: var(--color-muted);
 }
