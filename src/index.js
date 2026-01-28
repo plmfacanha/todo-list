@@ -1,9 +1,15 @@
 import "./styles.css";
 
-const todo = {
-  title: string,
-  descriptin: string,
-  dueDate: string,
-  priority: string,
-  checklist: boolean,
-};
+class Todo {
+  constructor(title, description, dueDate, priority, checklist) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority;
+    this.checklist = checklist;
+  }
+}
+
+function addTodo() {}
+function deleteTodo() {}
+function toggleTodo() {}
