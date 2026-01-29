@@ -49,7 +49,9 @@ const todoController = (function () {
   const addTodo = (todo) => {
     todos.push(todo);
   };
-  const deleteTodo = () => {};
+  const deleteTodo = (id) => {
+    todos.splice(id, 1);
+  };
 
   const printTodos = () => {
     console.table(todos);
