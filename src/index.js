@@ -33,7 +33,7 @@ const todoController = (function () {
   };
   const deleteTodo = () => {};
 
-  const getTodos = () => {
+  const printTodos = () => {
     console.log(todos);
   };
 
@@ -42,7 +42,7 @@ const todoController = (function () {
     addTodo,
     deleteTodo,
     toggleTodo,
-    getTodos,
+    printTodos,
   };
 })();
 
@@ -54,4 +54,4 @@ const newTodo = todoController.createTodo(
 );
 
 todoController.addTodo(newTodo);
-todoController.getTodos();
+todoController.printTodos();
