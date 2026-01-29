@@ -7,7 +7,7 @@ class Todo {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
-    this.priority = priority;
+    this.#priority = priority;
     this.checklist = checklist;
   }
 
@@ -16,7 +16,7 @@ class Todo {
   }
 
   setPriority(newPriority) {
-    this.priority = newPriority;
+    this.#priority = newPriority;
   }
 
   toggleChecklist() {
@@ -54,6 +54,9 @@ const newTodo = todoController.createTodo(
   "High",
 );
 
+debugger;
 todoController.addTodo(newTodo);
 todoController.printTodos();
+console.log(newTodo.priority);
+newTodo.priority = "Low";
 console.log(newTodo.priority);
