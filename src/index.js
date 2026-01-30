@@ -109,7 +109,7 @@ const todoController = (function () {
 
   const addTodo = (todo, projectName) => {
     if (!projectName) {
-      defaultFolder.push(todo);
+      archive[0].todos.push(todo);
       return;
     }
 
@@ -123,13 +123,11 @@ const todoController = (function () {
   };
 
   const deleteTodo = (todo, projectName) => {
-    const id = todo.id;
     const project = fetchProject(projectName);
-    if (project) {
-      const projectFolder = project.getTodos();
-      projectFolder.splice(id, 1);
+    if (!project) {
+      archive[0].todos = archive[0].todos.filter((t) => t.id === todo.id);
     } else {
-      defaultFolder.splice(id, 1);
+      project.todos = project.todos.filter((t) => t.id !== todo.id);
     }
   };
 
