@@ -74,7 +74,7 @@ class Project {
     return this.todos;
   }
 
-  addProjectTodo(todo) {
+  addNewTodo(todo) {
     this.projectTodos.push(todo);
   }
 }
@@ -91,18 +91,25 @@ const todoController = (function () {
     return new Todo(title, description, dueDate, priority, false);
   }
 
-  function createProject(name) {
-    return new Project(name);
+  function createProject(projectName) {
+    return new Project(projectName);
   }
 
   const hasProject = (projectName) => {
     return allTodos.find((project) => (project.name = projectName));
   };
 
-  const addToProject = (todo, projectName) => {
+  const addProject = (projectName) => {
+    if (!hasProject(projectName)) {
+      const newProject = createProject(projectName);
+      allTodos.push(newProject);
+    }
+  };
+
+  const addProjectTodo = (todo, projectName) => {
     const project = hasProject(projectName);
     if (project) {
-      project.addProjectTodo(todo);
+      project.addNewTodo(todo);
     } else {
       addTodo(todo);
     }
@@ -119,8 +126,9 @@ const todoController = (function () {
   };
 
   return {
+    addProject,
     addTodo,
-    addToProject,
+    addProjectTodo,
     createTodo,
     createProject,
     deleteTodo,
