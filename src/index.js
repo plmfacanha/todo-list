@@ -23,9 +23,7 @@ const thirdTodo = todoController.createTodo(
   "Extremely High",
 );
 
-const screenController = (function () {})();
-
-debugger;
+// debugger;
 todoController.addTodo(firstTodo, "BCIT");
 todoController.addTodo(secondTodo, "");
 todoController.addTodo(thirdTodo);
