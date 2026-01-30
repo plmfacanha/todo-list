@@ -80,7 +80,7 @@ class Project {
 }
 
 const todoController = (function () {
-  const archive = [
+  let archive = [
     {
       name: "Default",
       todos: [],
@@ -123,9 +123,14 @@ const todoController = (function () {
   };
 
   const deleteTodo = (todo, projectName) => {
+    if (!projectName) {
+      archive[0].todos = archive[0].todos.filter((t) => t.id !== todo.id);
+      return;
+    }
+
     const project = fetchProject(projectName);
-    if (!project) {
-      archive[0].todos = archive[0].todos.filter((t) => t.id === todo.id);
+    if (project.todos.length === 1) {
+      project.todos = [];
     } else {
       project.todos = project.todos.filter((t) => t.id !== todo.id);
     }
@@ -179,4 +184,5 @@ todoController.addTodo(firstTodo, "BCIT");
 todoController.addTodo(secondTodo, "");
 todoController.addTodo(thirdTodo);
 todoController.deleteTodo(secondTodo);
+todoController.deleteTodo(firstTodo, "BCIT");
 todoController.printTodos();
