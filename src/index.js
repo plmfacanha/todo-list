@@ -85,8 +85,9 @@ const todoController = (function () {
       const newProject = createProject(projectName);
       newProject.todos.push(todo);
       allTodos.push(newProject);
+    } else {
+      allTodos[0].todos.push(todo);
     }
-    allTodos[0].todos.push(todo);
   };
 
   const deleteTodo = (todo, projectName) => {
