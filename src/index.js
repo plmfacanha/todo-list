@@ -1,5 +1,6 @@
 import "./styles.css";
-import todoController from './controllers/todoController.js';
+import todoController from "./controllers/todoController.js";
+import screenController from "./controllers/screenController.js";
 
 const firstTodo = todoController.createTodo(
   "Surfar",
