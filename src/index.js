@@ -82,7 +82,7 @@ const todoController = (function () {
   const addTodo = (todo, projectName) => {
     const res = allTodos.find((project) => project.name == projectName);
     if (!res.name) {
-      allTodos[0].push(todo);
+      allTodos[0].todos.push(todo);
     } else {
       const newProject = createProject(projectName);
       newProject.todos.push(todo);
