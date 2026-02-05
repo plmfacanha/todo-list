@@ -197,3 +197,7 @@ footer {
   background-color: var(--color-muted);
   border-radius: 10px;
 }
+
+dialog {
+  margin: auto;
+}
