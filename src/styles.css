@@ -195,7 +195,7 @@ footer {
 
   color: var(--color-light);
   background-color: var(--color-muted);
-  border-radius: 10px;
+  border-radius: var(--spacing);
 }
 
 dialog {
