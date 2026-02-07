@@ -126,7 +126,7 @@ form {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  border-radius: 10px;
+  border-radius: var(--spacing);
 
   background-color: var(--color-calm);
   padding: 10px 20px;
