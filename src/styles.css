@@ -132,6 +132,10 @@ form {
   padding: 10px 20px;
 }
 
+form > input {
+  border-radius: 5px;
+}
+
 /* =========================
    TYPOGRAPHY
    ========================= */
