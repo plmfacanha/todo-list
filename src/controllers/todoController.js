@@ -4,7 +4,7 @@ import Project from "../models/Project.js";
 let archive = [
   {
     name: "Inbox",
-    todos: [],
+    todos: ["Study Java", "Study React"],
   },
 ];
 
@@ -26,12 +26,16 @@ const addProject = (projectName) => {
   return newProject;
 };
 
-const addTodo = (todo, project) => {};
+const addTodo = (todo) => {};
 
 const deleteTodo = (todo) => {};
 
 const deleteProject = (projectName) => {
   archive = archive.filter((project) => project.name !== projectName);
+};
+
+const fetchTodos = () => {
+  return archive.map((t) => t.todos);
 };
 
 const printTodos = () => {
@@ -46,5 +50,6 @@ export default {
   deleteTodo,
   deleteProject,
   fetchProject,
+  fetchTodos,
   printTodos,
 };

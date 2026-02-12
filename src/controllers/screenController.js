@@ -2,9 +2,15 @@ import Todo from "../models/Todo.js";
 import Project from "../models/Project.js";
 import todoController from "../controllers/todoController.js";
 
+const inbox = document.querySelector(".inbox");
+const projects = document.querySelector(".projects");
+
 const addForm = document.querySelector(".addForm");
 const addTodo = document.querySelector(".addTodo");
 const addProject = document.querySelector(".addProject");
+
+const todos = fetchTodos();
+console.log(todos);
 
 addTodo.addEventListener("click", function () {
   addTodo.remove();
