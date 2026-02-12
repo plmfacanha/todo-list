@@ -119,6 +119,10 @@ form > input {
   border-radius: 5px;
 }
 
+form > label {
+  padding-left: 7px;
+}
+
 /* =========================
    CLASSES
    ========================= */
