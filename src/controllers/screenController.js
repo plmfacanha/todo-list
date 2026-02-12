@@ -24,15 +24,17 @@ addTodo.addEventListener("click", function (e) {
   addTodo.remove();
 
   // create input
+  const label = document.createElement("label");
   const input = document.createElement("input");
   const confirmBtn = document.createElement("button");
   const cancelBtn = document.createElement("button");
 
+  label.textContent = "Task: ";
   confirmBtn.textContent = "Confirm";
   cancelBtn.textContent = "Cancel";
 
   const div = document.createElement("div");
-  div.append(input, confirmBtn, cancelBtn);
+  div.append(label, input, confirmBtn, cancelBtn);
 
   addForm.appendChild(div);
 });

@@ -143,6 +143,10 @@ li {
   list-style-type: none;
 }
 
+label {
+  color: white;
+}
+
 /* =========================
    TYPOGRAPHY
    ========================= */
