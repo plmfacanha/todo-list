@@ -18,7 +18,9 @@ todos.forEach((todo) => {
   inbox.appendChild(li);
 });
 
-addTodo.addEventListener("click", function () {
+addTodo.addEventListener("click", function (e) {
+  e.preventDefault();
+
   addTodo.remove();
 
   // create input
