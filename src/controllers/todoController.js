@@ -3,7 +3,7 @@ import Project from "../models/Project.js";
 
 let archive = [
   {
-    name: "Default",
+    name: "Inbox",
     todos: [],
   },
 ];
@@ -26,34 +26,9 @@ const addProject = (projectName) => {
   return newProject;
 };
 
-const addTodo = (todo, projectName) => {
-  if (!projectName) {
-    archive[0].todos.push(todo);
-    return;
-  }
+const addTodo = (todo, project) => {};
 
-  const project = fetchProject(projectName);
-  if (!project) {
-    const newProject = addProject(projectName);
-    newProject.addNewTodo(todo);
-  } else {
-    project.addNewTodo(todo);
-  }
-};
-
-const deleteTodo = (todo, projectName) => {
-  if (!projectName) {
-    archive[0].todos = archive[0].todos.filter((t) => t.id !== todo.id);
-    return;
-  }
-
-  const project = fetchProject(projectName);
-  if (project.todos.length === 1) {
-    project.todos = [];
-  } else {
-    project.todos = project.todos.filter((t) => t.id !== todo.id);
-  }
-};
+const deleteTodo = (todo) => {};
 
 const deleteProject = (projectName) => {
   archive = archive.filter((project) => project.name !== projectName);
