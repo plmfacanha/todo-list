@@ -2,11 +2,20 @@
    ROOT VARIABLES
    ========================= */
 
+@font-face {
+  font-family: "Roslindale";
+  src:
+    url("./fonts/Roslindale-Regular.woff2") format("woff2"),
+    url("./fonts/Roslindale-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   /* Font */
   --font-main:
-    Helvetica, Arial, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+    "Roslindale", "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
 
   /* New Color Palette */
   --color-dark: #090909; /* very dark (primary text) */
