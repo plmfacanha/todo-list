@@ -8,3 +8,5 @@ const projects = document.querySelector(".projects");
 const div = document.querySelector(".addForm");
 const addTodo = document.querySelector(".addTodo");
 const addProject = document.querySelector(".addProject");
+
+const displayFolder = (folder) => {};
