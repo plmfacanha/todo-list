@@ -1,5 +1,5 @@
 import Todo from "../models/Todo.js";
-import folder from "../models/folder.js";
+import Folder from "../models/folder.js";
 
 let archive = [
   {
@@ -45,11 +45,11 @@ const fetchTodos = (folderName) => {
 
 export default {
   addTodo,
-  addfolder,
+  addFolder,
   createTodo,
   createFolder,
   deleteTodo,
-  deletefolder,
+  deleteFolder,
   fetchFolder,
   fetchTodos,
 };
