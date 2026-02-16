@@ -9,4 +9,6 @@ const div = document.querySelector(".addForm");
 const addTodo = document.querySelector(".addTodo");
 const addProject = document.querySelector(".addProject");
 
-const displayFolder = (folder) => {};
+const displayTodos = (folderName) => {
+  const archive = fetchFolder(folderName);
+};
