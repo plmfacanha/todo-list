@@ -10,5 +10,13 @@ const addTodo = document.querySelector(".addTodo");
 const addProject = document.querySelector(".addProject");
 
 const displayTodos = (folderName) => {
-  const archive = fetchFolder(folderName);
+  const folder = fetchFolder(folderName);
+
+  folder.todos.forEach((todo) => {
+    const li = document.createElement("li");
+    li.textContent = todo;
+
+    inbox.appendChild(li);
+  });
 };
+displayTodos("Inbox");
