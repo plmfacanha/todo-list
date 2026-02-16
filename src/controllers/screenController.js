@@ -1,5 +1,5 @@
 import Todo from "../models/Todo.js";
-import Project from "../models/Project.js";
+import Project from "../models/Folder.js";
 import todoController from "../controllers/todoController.js";
 
 const inbox = document.querySelector(".inbox");

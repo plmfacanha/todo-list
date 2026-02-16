@@ -1,5 +1,5 @@
 import Todo from "../models/Todo.js";
-import Project from "../models/Project.js";
+import folder from "../models/folder.js";
 
 let archive = [
   {
@@ -12,18 +12,18 @@ function createTodo(title, description, dueDate, priority) {
   return new Todo(title, description, dueDate, priority, false);
 }
 
-function createProject(projectName) {
-  return new Project(projectName);
+function createFolder(folderName) {
+  return new Folder(folderName);
 }
 
-const fetchProject = (projectName) => {
-  return archive.find((project) => project.name === projectName);
+const fetchFolder = (folderName) => {
+  return archive.find((folder) => folder.name === folderName);
 };
 
-const addProject = (projectName) => {
-  const newProject = createProject(projectName);
-  archive.push(newProject);
-  return newProject;
+const addFolder = (folderName) => {
+  const newfolder = createFolder(folderName);
+  archive.push(newfolder);
+  return newfolder;
 };
 
 const addTodo = (todo) => {
@@ -34,22 +34,22 @@ const addTodo = (todo) => {
 
 const deleteTodo = (todo) => {};
 
-const deleteProject = (projectName) => {
-  archive = archive.filter((project) => project.name !== projectName);
+const deleteFolder = (folderName) => {
+  archive = archive.filter((folder) => folder.name !== folderName);
 };
 
-const fetchTodos = (projectName) => {
-  const project = fetchProject(projectName);
-  return project ? [...project.todos] : [];
+const fetchTodos = (folderName) => {
+  const folder = fetchFolder(folderName);
+  return folder ? [...folder.todos] : [];
 };
 
 export default {
   addTodo,
-  addProject,
+  addfolder,
   createTodo,
-  createProject,
+  createFolder,
   deleteTodo,
-  deleteProject,
-  fetchProject,
+  deletefolder,
+  fetchFolder,
   fetchTodos,
 };

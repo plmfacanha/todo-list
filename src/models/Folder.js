@@ -1,4 +1,4 @@
-export default class Project {
+export default class Folder {
   constructor(name) {
     this.name = name;
     this.todos = [];
@@ -8,8 +8,8 @@ export default class Project {
     return this.name;
   }
 
-  setProjectName(newProjectName) {
-    this.name = newProjectName;
+  setFolderName(newFolderName) {
+    this.name = newFolderName;
   }
 
   getTodos() {
