@@ -32,7 +32,7 @@ const addTodo = (todo) => {
   archive[0].todos.push(todo);
 };
 
-const deleteTodo = (todo) => {};
+const deleteTodo = (todo, folderName) => {};
 
 const deleteFolder = (folderName) => {
   archive = archive.filter((folder) => folder.name !== folderName);
