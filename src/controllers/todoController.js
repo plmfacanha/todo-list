@@ -1,5 +1,5 @@
 import Todo from "../models/Todo.js";
-import Folder from "../models/folder.js";
+import Folder from "../models/Folder.js";
 
 let archive = [
   {
