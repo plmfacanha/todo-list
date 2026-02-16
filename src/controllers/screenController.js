@@ -19,4 +19,7 @@ const displayTodos = (folderName) => {
     inbox.appendChild(li);
   });
 };
-displayTodos("Inbox");
+
+export default {
+  displayTodos,
+};
