@@ -1,5 +1,5 @@
 import Todo from "../models/Todo.js";
-import Project from "../models/Folder.js";
+import Project from "../models/Project.js";
 import todoController from "../controllers/todoController.js";
 
 const inbox = document.querySelector(".inbox");
@@ -9,16 +9,7 @@ const div = document.querySelector(".addForm");
 const addTodo = document.querySelector(".addTodo");
 const addProject = document.querySelector(".addProject");
 
-const displayTodos = (folderName) => {
-  const folder = todoController.fetchTodos(folderName);
-
-  folder.todos.forEach((todo) => {
-    const li = document.createElement("li");
-    li.textContent = todo;
-
-    inbox.appendChild(li);
-  });
-};
+const displayTodos = (folderName) => {};
 
 export default {
   displayTodos,

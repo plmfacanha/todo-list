@@ -1,50 +1,30 @@
 import Todo from "../models/Todo.js";
-import Folder from "../models/Folder.js";
+import Project from "../models/Project.js";
 
-let archive = [
-  let inbox = [
-  {
-    todos: ["Study Java", "Study React"],
-  },
-];
+const archive = {
+  inbox: [],
+  projects: [],
+};
 
-let projects = [
-  {
-    name: "BCIT",
-    todos: ["Lab 05 COMP 1011"],
-  },
-];
-]
-
-function createTodo(title, description, dueDate, priority) {
-  return new Todo(title, description, dueDate, priority, false);
+function createProject(projectName) {
+  return new Project(projectName);
 }
 
-function createFolder(folderName) {
-  return new Folder(folderName);
-}
+const addProject = (projectName) => {
+  const project = createProject(projectName);
 
-const fetchFolder = (folderName) => {
-  return archive.find((folder) => folder.name === folderName);
+  archive.projects.push(project);
 };
 
-const addFolder = (folderName) => {
-  const newfolder = createFolder(folderName);
-  archive.push(newfolder);
-  return newfolder;
+const addTodo = (task, projectName) => {
+  if (!task) return;
+
+  const todo = new Todo(task, false);
+
+  if (!projectName) archive.inbox.push();
 };
 
-const addTodo = (todo) => {
-  if (!todo) return;
-
-  archive[0].todos.push(todo);
-};
-
-const deleteTodo = (todo, folderName) => {};
-
-const deleteFolder = (folderName) => {
-  archive = archive.filter((folder) => folder.name !== folderName);
-};
+const deleteTodo = (todo, projectName) => {};
 
 const fetchTodos = () => {
   return [...archive[0].todos];
@@ -52,11 +32,11 @@ const fetchTodos = () => {
 
 export default {
   addTodo,
-  addFolder,
+  addProject,
   createTodo,
-  createFolder,
+  createProject,
   deleteTodo,
-  deleteFolder,
-  fetchFolder,
+  deleteProject,
+  fetchProject,
   fetchTodos,
 };
