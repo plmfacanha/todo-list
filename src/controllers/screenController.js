@@ -10,7 +10,7 @@ const addTodo = document.querySelector(".addTodo");
 const addProject = document.querySelector(".addProject");
 
 const displayTodos = (folderName) => {
-  const folder = todoController.fetchFolder(folderName);
+  const folder = todoController.fetchTodos(folderName);
 
   folder.todos.forEach((todo) => {
     const li = document.createElement("li");

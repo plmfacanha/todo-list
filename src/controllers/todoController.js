@@ -2,11 +2,19 @@ import Todo from "../models/Todo.js";
 import Folder from "../models/Folder.js";
 
 let archive = [
+  let inbox = [
   {
-    name: "Inbox",
     todos: ["Study Java", "Study React"],
   },
 ];
+
+let projects = [
+  {
+    name: "BCIT",
+    todos: ["Lab 05 COMP 1011"],
+  },
+];
+]
 
 function createTodo(title, description, dueDate, priority) {
   return new Todo(title, description, dueDate, priority, false);
@@ -38,9 +46,8 @@ const deleteFolder = (folderName) => {
   archive = archive.filter((folder) => folder.name !== folderName);
 };
 
-const fetchTodos = (folderName) => {
-  const folder = fetchFolder(folderName);
-  return folder ? [...folder.todos] : [];
+const fetchTodos = () => {
+  return [...archive[0].todos];
 };
 
 export default {
