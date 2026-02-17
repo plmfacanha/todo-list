@@ -17,7 +17,11 @@ export default class Project {
     return [...this.#todos];
   }
 
-  setTodos(todo) {
+  addTodo(todo) {
     this.#todos.push(todo);
+  }
+
+  setTodos(todo) {
+    this.addTodo(todo);
   }
 }

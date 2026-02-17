@@ -8,25 +8,26 @@ const archive = {
 
 const addProject = (project) => {
   archive.projects.push(project);
+  persistArchive();
 };
 
 const addTodo = (task, projectName) => {
-  if (!task) return;
+  if (!task || !task.trim()) return;
 
-  const todo = new Todo(task, false);
+  const todo = new Todo(task.trim(), false);
 
   if (!projectName) {
     archive.inbox.push(todo);
     return;
   }
 
-  const project = archive.projects.find((p) => p.name === projectName);
+  const project = archive.projects.find((p) => p.getName() === projectName);
 
   if (project) {
-    project.todos.push(todo);
+    project.addTodo(todo);
   } else {
     const newProject = new Project(projectName);
-    newProject.setTodos(todo);
+    newProject.addTodo(todo);
     addProject(newProject);
   }
 };
@@ -34,14 +35,13 @@ const addTodo = (task, projectName) => {
 const deleteTodo = (todo, projectName) => {};
 
 const fetchArchive = () => {
-  return { ...archive };
+  return {
+    inbox: [...archive.inbox],
+    projects: [...archive.projects],
+  };
 };
 
 // debugger;
-addTodo("Study Java");
-addTodo("Lab05", "BCIT");
-
-console.table(archive);
 
 export default {
   addTodo,

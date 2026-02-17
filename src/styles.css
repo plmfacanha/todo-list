@@ -95,7 +95,7 @@ h1 {
   background-color: var(--color-accent);
 }
 
-.addTodo,
+.addBtn,
 .addProject {
   display: flex;
   align-items: center;
@@ -107,8 +107,12 @@ h1 {
   border: transparent;
 }
 
-.addTodo {
+.div,
+.addBtn {
+  background-color: var(--color-muted);
   color: white;
+
+  border-radius: 10px;
 }
 
 /* =========================
@@ -138,6 +142,7 @@ main {
 button {
   padding: 0 10px;
   margin: 5px;
+  cursor: pointer;
 }
 
 li {
@@ -201,9 +206,6 @@ select {
   font: inherit;
 }
 
-button {
-  cursor: pointer;
-}
 footer {
   display: flex;
   justify-content: center;
@@ -220,8 +222,7 @@ dialog {
 
 form {
   display: flex;
-  flex-direction: column;
-  align-items: start;
+  align-items: center;
   gap: var(--spacing);
   border-radius: var(--spacing);
 

@@ -25,6 +25,6 @@ export default class Todo {
   }
 
   toggleChecklist() {
-    this.checklist = !this.checklist;
+    this.#checklist = !this.#checklist;
   }
 }
