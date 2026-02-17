@@ -6,12 +6,8 @@ const archive = {
   projects: [],
 };
 
-function createProject(projectName) {
-  return new Project(projectName);
-}
-
 const addProject = (projectName) => {
-  const project = createProject(projectName);
+  const project = new Project(projectName);
 
   archive.projects.push(project);
 };
@@ -22,6 +18,10 @@ const addTodo = (task, projectName) => {
   const todo = new Todo(task, false);
 
   if (!projectName) archive.inbox.push(todo);
+
+  const project = archive.projects.find((p) => p.name === projectName);
+
+  project.todos.push(task);
 };
 
 const deleteTodo = (todo, projectName) => {};
