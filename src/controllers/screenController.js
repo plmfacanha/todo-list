@@ -5,21 +5,21 @@ const init = (container) => {
   const div = container.querySelector(".div");
   const btn = container.querySelector(".addBtn");
 
-  displayInbox(inbox);
+  displayFolder(inbox);
 
   btn.addEventListener("click", () => {
     showForm(div, inbox, btn);
   });
 };
 
-const displayInbox = (container) => {
+const displayFolder = (folder) => {
   const archive = todoController.fetchArchive();
-  container.textContent = "";
+  folder.textContent = "";
 
   archive.inbox.forEach((todo) => {
     const li = document.createElement("li");
     li.textContent = todo.getTitle();
-    container.appendChild(li);
+    folder.appendChild(li);
   });
 };
 
@@ -44,7 +44,7 @@ const showForm = (container, inbox, btn) => {
     if (!task.trim()) return;
 
     todoController.addTodo(task);
-    displayInbox(inbox);
+    displayFolder(inbox);
 
     form.remove();
     btn.style.display = "";
