@@ -21,7 +21,7 @@ const addTodo = (task, projectName) => {
 
   const todo = new Todo(task, false);
 
-  if (!projectName) archive.inbox.push();
+  if (!projectName) archive.inbox.push(todo);
 };
 
 const deleteTodo = (todo, projectName) => {};
@@ -29,6 +29,10 @@ const deleteTodo = (todo, projectName) => {};
 const fetchTodos = () => {
   return [...archive[0].todos];
 };
+
+addTodo("Study Java");
+
+console.table(archive);
 
 export default {
   addTodo,
