@@ -8,7 +8,6 @@ const archive = {
 
 const addProject = (project) => {
   archive.projects.push(project);
-  persistArchive();
 };
 
 const addTodo = (task, projectName) => {
