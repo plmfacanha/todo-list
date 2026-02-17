@@ -15,8 +15,4 @@ export default class Project {
   getTodos() {
     return this.todos;
   }
-
-  addNewTodo(todo) {
-    this.todos.push(todo);
-  }
 }

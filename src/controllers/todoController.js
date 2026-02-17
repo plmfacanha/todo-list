@@ -17,11 +17,20 @@ const addTodo = (task, projectName) => {
 
   const todo = new Todo(task, false);
 
-  if (!projectName) archive.inbox.push(todo);
+  if (!projectName) {
+    archive.inbox.push(todo);
+    return;
+  }
 
   const project = archive.projects.find((p) => p.name === projectName);
 
-  project.todos.push(task);
+  if (project) {
+    project.todos.push(todo);
+  } else {
+    const newProject = new Project(projectName);
+    newProject.todos.push(todo);
+    addProject(newProject);
+  }
 };
 
 const deleteTodo = (todo, projectName) => {};
