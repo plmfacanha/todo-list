@@ -1,9 +1,9 @@
 import todoController from "../controllers/todoController.js";
 
 const init = (container) => {
-  const btn = container.querySelector(".addBtn");
   const inbox = container.querySelector(".inbox");
   const div = container.querySelector(".div");
+  const btn = container.querySelector(".addBtn");
 
   displayInbox(inbox);
 
@@ -12,14 +12,14 @@ const init = (container) => {
   });
 };
 
-const displayInbox = (inbox) => {
+const displayInbox = (container) => {
   const archive = todoController.fetchArchive();
-  inbox.textContent = "";
+  container.textContent = "";
 
   archive.inbox.forEach((todo) => {
     const li = document.createElement("li");
     li.textContent = todo.getTitle();
-    inbox.appendChild(li);
+    container.appendChild(li);
   });
 };
 
