@@ -6,9 +6,7 @@ const archive = {
   projects: [],
 };
 
-const addProject = (projectName) => {
-  const project = new Project(projectName);
-
+const addProject = (project) => {
   archive.projects.push(project);
 };
 
@@ -35,21 +33,8 @@ const addTodo = (task, projectName) => {
 
 const deleteTodo = (todo, projectName) => {};
 
-const fetchTodos = () => {
-  return [...archive[0].todos];
-};
-
-addTodo("Study Java");
-
-console.table(archive);
-
 export default {
   addTodo,
   addProject,
-  createTodo,
-  createProject,
   deleteTodo,
-  deleteProject,
-  fetchProject,
-  fetchTodos,
 };
