@@ -37,7 +37,7 @@ const fetchArchive = () => {
   return { ...archive };
 };
 
-debugger;
+// debugger;
 addTodo("Study Java");
 addTodo("Lab05", "BCIT");
 

@@ -1,7 +1,10 @@
 export default class Project {
+  #id;
   #name;
   #todos;
+
   constructor(name) {
+    this.#id = Math.floor(Math.random() * 1_000_000);
     this.#name = name;
     this.#todos = [];
   }
