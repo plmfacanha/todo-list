@@ -9,8 +9,10 @@ const div = document.querySelector(".addForm");
 const addTodo = document.querySelector(".addTodo");
 const addProject = document.querySelector(".addProject");
 
-const displayTodos = (folderName) => {};
+const displayInbox = () => {};
+const displayProjects = () => {};
 
 export default {
-  displayTodos,
+  displayInbox,
+  displayProjects,
 };

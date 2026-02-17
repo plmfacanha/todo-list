@@ -26,15 +26,26 @@ const addTodo = (task, projectName) => {
     project.todos.push(todo);
   } else {
     const newProject = new Project(projectName);
-    newProject.todos.push(todo);
+    newProject.setTodos(todo);
     addProject(newProject);
   }
 };
 
 const deleteTodo = (todo, projectName) => {};
 
+const fetchArchive = () => {
+  return { ...archive };
+};
+
+debugger;
+addTodo("Study Java");
+addTodo("Lab05", "BCIT");
+
+console.table(archive);
+
 export default {
   addTodo,
   addProject,
   deleteTodo,
+  fetchArchive,
 };
