@@ -17,9 +17,17 @@ const displayFolder = (folderName) => {
   folder.textContent = "";
 
   archive[folderName].forEach((todo) => {
+    const div = document.createElement("div");
     const li = document.createElement("li");
+    const deleteBtn = document.createElement("button");
+
     li.textContent = todo.getTitle();
-    folder.appendChild(li);
+    deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add("delete-btn");
+
+    div.append(li, deleteBtn);
+
+    folder.appendChild(div);
   });
 };
 
