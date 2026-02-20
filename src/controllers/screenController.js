@@ -1,22 +1,22 @@
 import todoController from "../controllers/todoController.js";
 
 const init = (container) => {
-  const inbox = container.querySelector(".inbox");
   const div = container.querySelector(".div");
   const addBtn = container.querySelector(".addTodo");
 
-  displayFolder(inbox);
+  displayFolder("inbox");
 
   addBtn.addEventListener("click", () => {
-    showForm(div, inbox, addBtn);
+    showForm(div, "inbox", addBtn);
   });
 };
 
-const displayFolder = (folder) => {
+const displayFolder = (folderName) => {
   const archive = todoController.fetchArchive();
+  const folder = document.querySelector(`.${folderName}`);
   folder.textContent = "";
 
-  archive.inbox.forEach((todo) => {
+  archive[folderName].forEach((todo) => {
     const li = document.createElement("li");
     li.textContent = todo.getTitle();
     folder.appendChild(li);
