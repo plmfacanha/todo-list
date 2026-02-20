@@ -21,7 +21,7 @@ export default class Project {
     this.#todos.push(todo);
   }
 
-  setTodos(todo) {
-    this.addTodo(todo);
+  setTodos(newTodos) {
+    this.#todos = [...newTodos];
   }
 }

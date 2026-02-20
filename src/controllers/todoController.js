@@ -35,15 +35,19 @@ const deleteTodo = (task, projectName) => {
   if (!task || !task.trim()) return;
 
   if (!projectName || !projectName.trim()) {
-    archive.inbox = archive.inbox.filter((t) => t.getTitle() !== task);
-  } else {
-    archive.projects = archive.projects.map((project) => {
-      if (project.name === projectName) {
-        const updatedTodos = project.todos.filter((t) => t.getTitle() !== task);
-        return { ...project, todos: updatedTodos };
-      }
-    });
+    archive.inbox = archive.inbox.filter((t) => t.getTitle() !== task.trim());
+    return;
   }
+
+  const project = archive.projects.find(
+    (p) => p.getName() === projectName.trim(),
+  );
+  if (!project) return;
+
+  const updatedTodos = project
+    .getTodos()
+    .filter((t) => t.getTitle() !== task.trim());
+  project.setTodos(updatedTodos);
 };
 
 const fetchArchive = () => {

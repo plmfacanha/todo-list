@@ -41,6 +41,7 @@ const showForm = (container, folder, btn) => {
     e.preventDefault();
 
     const task = input.value;
+    if (!task.trim()) return;
 
     todoController.addTodo(task);
     displayFolder(folder);
