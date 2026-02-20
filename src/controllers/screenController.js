@@ -3,12 +3,12 @@ import todoController from "../controllers/todoController.js";
 const init = (container) => {
   const inbox = container.querySelector(".inbox");
   const div = container.querySelector(".div");
-  const btn = container.querySelector(".addBtn");
+  const addBtn = container.querySelector(".addTodo");
 
   displayFolder(inbox);
 
-  btn.addEventListener("click", () => {
-    showForm(div, inbox, btn);
+  addBtn.addEventListener("click", () => {
+    showForm(div, inbox, addBtn);
   });
 };
 
@@ -23,7 +23,7 @@ const displayFolder = (folder) => {
   });
 };
 
-const showForm = (container, inbox, btn) => {
+const showForm = (container, folder, btn) => {
   btn.style.display = "none";
 
   const form = document.createElement("form");
@@ -44,7 +44,7 @@ const showForm = (container, inbox, btn) => {
     if (!task.trim()) return;
 
     todoController.addTodo(task);
-    displayFolder(inbox);
+    displayFolder(folder);
 
     form.remove();
     btn.style.display = "";

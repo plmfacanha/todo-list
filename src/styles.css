@@ -95,8 +95,8 @@ h1 {
   background-color: var(--color-accent);
 }
 
-.addBtn,
-.addProject {
+.addProject,
+.addTodo {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -108,7 +108,7 @@ h1 {
 }
 
 .div,
-.addBtn {
+.addTodo {
   background-color: var(--color-muted);
   color: white;
 
