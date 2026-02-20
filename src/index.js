@@ -4,6 +4,5 @@ import todoController from "./controllers/todoController.js";
 import screenController from "./controllers/screenController.js";
 
 const appContainer = document.querySelector("#wrapper");
-// this wraps inbox + button
 
 screenController.init(appContainer);
