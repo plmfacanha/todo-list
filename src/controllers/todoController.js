@@ -31,7 +31,20 @@ const addTodo = (task, projectName) => {
   }
 };
 
-const deleteTodo = (todo, projectName) => {};
+const deleteTodo = (task, projectName) => {
+  if (!task || !task.trim()) return;
+
+  if (!projectName || !projectName.trim()) {
+    archive.inbox = archive.inbox.filter((t) => t.getTitle() !== task);
+  } else {
+    archive.projects = archive.projects.map((project) => {
+      if (project.name === projectName) {
+        const updatedTodos = project.todos.filter((t) => t.getTitle() !== task);
+        return { ...project, todos: updatedTodos };
+      }
+    });
+  }
+};
 
 const fetchArchive = () => {
   return {
@@ -39,8 +52,6 @@ const fetchArchive = () => {
     projects: [...archive.projects],
   };
 };
-
-// debugger;
 
 export default {
   addTodo,
