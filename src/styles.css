@@ -85,7 +85,8 @@ h1 {
   margin: 5px;
 }
 
-.inbox {
+.inbox,
+.projects {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -95,15 +96,17 @@ h1 {
   margin-bottom: 10px;
 }
 
-.inbox div {
+.inbox > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
 }
 
-.projects {
-  background-color: var(--color-accent);
+.custom-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .addProject,
@@ -126,6 +129,7 @@ h1 {
   border-radius: 10px;
 }
 
+.add-btn,
 .delete-btn {
   background: transparent;
   border: none;
@@ -143,6 +147,11 @@ h1 {
 .delete-btn:hover {
   background-color: #ffe5e5;
   color: #990000;
+}
+
+.add-btn:hover {
+  background-color: #85f147;
+  color: #0a0903;
 }
 
 /* =========================
@@ -175,6 +184,10 @@ button {
   cursor: pointer;
 }
 
+button > p {
+  color: black;
+}
+
 li {
   list-style-type: none;
 }
@@ -199,6 +212,7 @@ h6 {
 }
 
 p {
+  color: white;
   max-width: 65ch;
 }
 
@@ -231,7 +245,7 @@ a:hover {
 
 form {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--spacing);
   border-radius: var(--spacing);
 
@@ -239,16 +253,24 @@ form {
   padding: 10px 20px;
 }
 
-form > input {
-  border-radius: 5px;
+form label {
+  justify-self: end; /* labels right-aligned */
 }
 
-form > label {
-  padding-left: 7px;
+form input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
-form > p {
-  color: white;
+form > div {
+  display: grid;
+  grid-template-columns: 90px 1fr; /* label column + input column */
+  gap: 10px;
+  align-items: center;
+}
+
+input {
+  height: 25px;
 }
 
 input,
