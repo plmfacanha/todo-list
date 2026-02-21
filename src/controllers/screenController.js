@@ -1,13 +1,13 @@
 import todoController from "../controllers/todoController.js";
 
 const init = (container) => {
-  const addDiv = container.querySelector(".add-div");
-  const addBtn = container.querySelector(".custom-btn.add-todo");
+  const customDiv = container.querySelector(".custom-div");
+  const addTodo = container.querySelector(".custom-btn.add-todo");
 
   displayFolders();
 
-  addBtn.addEventListener("click", () => {
-    showForm(addDiv, addBtn);
+  addTodo.addEventListener("click", () => {
+    showForm(customDiv, addTodo);
   });
 };
 
@@ -65,6 +65,26 @@ const displayFolders = () => {
   });
 };
 
-const showForm = (container, btn) => {};
+const showForm = (container, btn) => {
+  btn.style.display = "none";
+
+  const form = document.createElement("form");
+  const label = document.createElement("label");
+  const input = document.createElement("input");
+
+  const confirmBtn = document.createElement("button");
+  const cancelBtn = document.createElement("button");
+
+  confirmBtn.classList.add("confirm-btn");
+  cancelBtn.classList.add("cancel-btn");
+
+  label.textContent = "Task: ";
+  input.type = "text";
+  confirmBtn.textContent = "Confirm";
+  cancelBtn.textContent = "Cancel";
+
+  form.append(label, input, confirmBtn, cancelBtn);
+  container.appendChild(form);
+};
 
 export default { init };
