@@ -59,7 +59,6 @@ const displayFolders = () => {
       todosDiv.appendChild(todoList);
 
       headingDiv.appendChild(todosDiv);
-      headingDiv.style.backgroundColor = randomColor();
     });
     projects.append(headingDiv);
   });
