@@ -109,8 +109,7 @@ h1 {
   align-items: center;
 }
 
-.addProject,
-.addTodo {
+.addBtn {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -121,8 +120,8 @@ h1 {
   border: transparent;
 }
 
-.div,
-.addTodo {
+.form,
+.addBtn {
   background-color: var(--color-muted);
   color: white;
 

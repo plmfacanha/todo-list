@@ -1,13 +1,13 @@
 import todoController from "../controllers/todoController.js";
 
 const init = (container) => {
-  const form = container.querySelector(".div");
-  const btn = container.querySelector(".addTodo");
+  const form = container.querySelector(".form");
+  const addBtn = container.querySelector(".addBtn");
 
   displayFolders();
 
-  btn.addEventListener("click", () => {
-    showForm(form, btn);
+  addBtn.addEventListener("click", () => {
+    showForm(form, addBtn);
   });
 };
 
