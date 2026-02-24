@@ -88,6 +88,9 @@ const showForm = (container, btn) => {
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+
+    const task = input.value;
+    console.log(task);
   });
 };
 
