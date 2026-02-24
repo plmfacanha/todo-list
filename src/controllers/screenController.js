@@ -88,9 +88,19 @@ const showForm = (container, btn) => {
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-
     const task = input.value;
-    console.log(task);
+
+    const div = document.createElement("div");
+    const icon = document.createElement("i");
+    const p = document.createElement("p");
+
+    icon.classList.add("fa-regular", "fa-circle");
+    p.textContent = task;
+    div.append(icon, p);
+
+    todoController.addTodo(task);
+    form.remove();
+    // <i class="fa-regular fa-circle"></i>
   });
 };
 
