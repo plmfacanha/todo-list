@@ -85,6 +85,10 @@ const showForm = (container, btn) => {
 
   form.append(label, input, confirmBtn, cancelBtn);
   container.appendChild(form);
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+  });
 };
 
 export default { init };
