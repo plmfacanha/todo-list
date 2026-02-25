@@ -1,17 +1,21 @@
 import todoController from "../controllers/todoController.js";
 
-const container = document.querySelector("#wrapper");
-const customDiv = container.querySelector(".custom-div");
-const addTodo = container.querySelector(".custom-btn.add-todo");
+const init = () => {
+  const container = document.querySelector("#wrapper");
+  const customDiv = container.querySelector(".custom-div");
+  const addTodo = container.querySelector(".custom-btn.add-todo");
 
-const inbox = document.querySelector(".inbox");
-const projects = document.querySelector(".projects");
+  const inbox = document.querySelector(".inbox");
+  const projects = document.querySelector(".projects");
 
-addTodo.addEventListener("click", () => {
-  showForm(customDiv, inbox, addTodo);
-});
+  displayFolders(inbox, projects);
 
-const displayFolders = () => {
+  addTodo.addEventListener("click", () => {
+    showForm(customDiv, inbox, addTodo);
+  });
+};
+
+const displayFolders = (inbox, projects) => {
   const archive = todoController.fetchArchive();
 
   inbox.textContent = "";
@@ -63,7 +67,6 @@ const displayFolders = () => {
   });
 };
 
-displayFolders();
 const showForm = (container, inbox, btn) => {
   btn.style.display = "none";
 
@@ -100,7 +103,6 @@ const showForm = (container, inbox, btn) => {
     todoController.addTodo(task);
     form.remove();
     inbox.appendChild(li);
-    // <i class="fa-regular fa-circle"></i>
   });
 };
 
