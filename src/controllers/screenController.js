@@ -1,25 +1,38 @@
 import todoController from "../controllers/todoController.js";
 
 const init = () => {
-  const container = document.querySelector("#wrapper");
-  const customDiv = container.querySelector(".custom-div");
-  const addTodo = container.querySelector(".custom-btn.add-todo");
+  const customDiv = document.querySelector(".custom-div");
+  const addTodo = document.querySelector(".custom-btn.add-todo");
 
-  const inbox = document.querySelector(".inbox");
-  const projects = document.querySelector(".projects");
-
-  displayFolder(inbox);
+  updateScreen();
 
   addTodo.addEventListener("click", () => {
-    showForm(customDiv, inbox, addTodo);
+    showForm(customDiv, addTodo);
   });
 };
 
-const displayFolder = (folder) => {
+const updateScreen = () => {
   const archive = todoController.fetchArchive();
+  const inbox = document.querySelector(".inbox");
+
+  inbox.textContent = "";
+
+  console.log(archive);
+
+  archive.inbox.forEach((task) => {
+    const li = document.createElement("li");
+    const icon = document.createElement("i");
+    const span = document.createElement("span");
+
+    icon.classList.add("fa-regular", "fa-circle");
+    span.textContent = task.getTitle();
+    li.append(icon, span);
+
+    inbox.appendChild(li);
+  });
 };
 
-const showForm = (container, inbox, btn) => {
+const showForm = (container, btn) => {
   btn.style.display = "none";
 
   const form = document.createElement("form");
@@ -44,17 +57,9 @@ const showForm = (container, inbox, btn) => {
     e.preventDefault();
     const task = input.value;
 
-    const li = document.createElement("li");
-    const icon = document.createElement("i");
-    const span = document.createElement("span");
-
-    icon.classList.add("fa-regular", "fa-circle");
-    span.textContent = task;
-    li.append(icon, span);
-
     todoController.addTodo(task);
     form.remove();
-    inbox.appendChild(li);
+    updateScreen();
   });
 };
 
