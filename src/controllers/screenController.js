@@ -11,18 +11,20 @@ const init = () => {
 
 const updateInbox = (folder) => {
   const archive = todoController.fetchArchive();
-  const inbox = document.querySelector(".inbox");
-  inbox.textContent = "";
 
   if (!folder || folder.trim() === "") return;
 
   archive[folder].forEach((task) => {
-    const li = displayTask(task);
-    inbox.appendChild(li);
+    displayTask(task);
   });
 };
 
 const displayTask = (task) => {
+  const inboxDiv = document.querySelector(".inbox");
+  const completedDiv = document.querySelector(".completed-div");
+
+  inboxDiv.textContent = "";
+
   const li = document.createElement("li");
   const label = document.createElement("label");
   const input = document.createElement("input");
@@ -48,17 +50,23 @@ const displayTask = (task) => {
   li.style.padding = "10px";
   li.appendChild(label);
 
+  inboxDiv.appendChild(label);
+
   input.addEventListener("change", () => {
     if (input.checked) {
       label.classList.add("completed-task");
       icon.classList.remove("fa-regular", "fa-circle");
       icon.classList.add("fa-solid", "fa-circle-check");
       icon.classList.add("completed-icon");
+
+      completedDiv.appendChild(label);
     } else {
       label.classList.remove("completed-task");
       icon.classList.remove("fa-solid", "fa-circle-check");
       icon.classList.add("fa-regular", "fa-circle");
       icon.classList.remove("completed-icon");
+
+      inboxDiv.appendChild(label);
     }
   });
 
