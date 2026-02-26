@@ -138,6 +138,10 @@ main {
   padding-left: 20px;
 }
 
+main > div {
+  flex: 1;
+}
+
 sidebar {
   padding: 20px;
   margin-bottom: var(--spacing);

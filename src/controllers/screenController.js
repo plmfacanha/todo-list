@@ -1,7 +1,7 @@
 import todoController from "../controllers/todoController.js";
 
 const init = () => {
-  const inboxDiv = document.querySelector(".custom-div");
+  const inboxDiv = document.querySelector(".inbox-div");
   const addTodo = document.querySelector(".custom-btn.add-todo");
 
   addTodo.addEventListener("click", () => {
