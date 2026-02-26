@@ -17,16 +17,52 @@ const updateInbox = (folder) => {
   if (!folder || folder.trim() === "") return;
 
   archive[folder].forEach((task) => {
-    const li = document.createElement("li");
-    const icon = document.createElement("i");
-    const span = document.createElement("span");
-
-    icon.classList.add("fa-regular", "fa-circle");
-    span.textContent = task.getTitle();
-    li.append(icon, span);
-
+    const li = createTask(task);
     inbox.appendChild(li);
   });
+};
+
+const createTask = (task) => {
+  const li = document.createElement("li");
+  const label = document.createElement("label");
+  const input = document.createElement("input");
+  const icon = document.createElement("i");
+
+  const id = `task-${task.getTitle()}`;
+
+  icon.classList.add("fa-regular", "fa-circle");
+
+  label.htmlFor = id;
+  label.style.marginLeft = "10px";
+
+  input.id = id;
+  input.type = "checkbox";
+  input.style.position = "absolute";
+  input.style.opacity = 0;
+
+  const textSpan = document.createElement("span");
+  textSpan.textContent = task.getTitle();
+
+  label.append(icon, textSpan, input);
+
+  li.style.padding = "10px";
+  li.append(label);
+
+  input.addEventListener("change", () => {
+    if (input.checked) {
+      label.classList.add("completed-task");
+      icon.classList.remove("fa-regular", "fa-circle");
+      icon.classList.add("fa-solid", "fa-circle-check");
+      icon.classList.add("completed-icon");
+    } else {
+      label.classList.remove("completed-task");
+      icon.classList.remove("fa-solid", "fa-circle-check");
+      icon.classList.add("fa-regular", "fa-circle");
+      icon.classList.remove("completed-icon");
+    }
+  });
+
+  return li;
 };
 
 const showForm = (container, btn) => {

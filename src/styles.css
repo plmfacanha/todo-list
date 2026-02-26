@@ -90,6 +90,10 @@ h1 {
   transition: background 0.2s ease;
 }
 
+.custom-btn.add-todo {
+  padding: 10px;
+}
+
 .confirm-btn {
   background-color: rgb(108, 182, 62);
 }
@@ -119,6 +123,14 @@ h1 {
 .cancel-btn:hover {
   background-color: rgb(226, 35, 99);
   color: white;
+}
+
+.completed-task {
+  text-decoration: line-through;
+}
+
+.completed-icon {
+  color: blue;
 }
 
 /* =========================
@@ -207,6 +219,17 @@ select {
 }
 
 button {
+  cursor: pointer;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+label i {
   cursor: pointer;
 }
 
