@@ -14,13 +14,13 @@ const updateInbox = (folder) => {
 
   if (!folder || folder.trim() === "") return;
 
-  archive[folder].forEach((task) => {
-    displayTask(task);
+  archive[folder].forEach((todo) => {
+    displayTodo(todo);
   });
 };
 
-const displayTask = (task) => {
-  const inboxDiv = document.querySelector(".inbox");
+const displayTodo = (todo) => {
+  const inboxDiv = document.querySelector(".inbox-div");
   const completedDiv = document.querySelector(".completed-div");
 
   inboxDiv.textContent = "";
@@ -30,7 +30,7 @@ const displayTask = (task) => {
   const input = document.createElement("input");
   const icon = document.createElement("i");
 
-  const id = `task-${task.getTitle()}`;
+  const id = `task-${todo.getTitle()}`;
 
   icon.classList.add("fa-regular", "fa-circle");
 
@@ -43,7 +43,7 @@ const displayTask = (task) => {
   input.style.opacity = 0;
 
   const textSpan = document.createElement("span");
-  textSpan.textContent = task.getTitle();
+  textSpan.textContent = todo.getTitle();
 
   label.append(icon, textSpan, input);
 
@@ -69,8 +69,6 @@ const displayTask = (task) => {
       inboxDiv.appendChild(label);
     }
   });
-
-  return li;
 };
 
 const showForm = (container, btn) => {
