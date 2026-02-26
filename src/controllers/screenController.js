@@ -4,22 +4,19 @@ const init = () => {
   const customDiv = document.querySelector(".custom-div");
   const addTodo = document.querySelector(".custom-btn.add-todo");
 
-  updateScreen();
-
   addTodo.addEventListener("click", () => {
     showForm(customDiv, addTodo);
   });
 };
 
-const updateScreen = () => {
+const updateScreen = (folder) => {
   const archive = todoController.fetchArchive();
   const inbox = document.querySelector(".inbox");
-
   inbox.textContent = "";
 
-  console.log(archive);
+  if (!folder || folder.trim() === "") return;
 
-  archive.inbox.forEach((task) => {
+  archive[folder].forEach((task) => {
     const li = document.createElement("li");
     const icon = document.createElement("i");
     const span = document.createElement("span");
@@ -59,7 +56,7 @@ const showForm = (container, btn) => {
 
     todoController.addTodo(task);
     form.remove();
-    updateScreen();
+    updateScreen("inbox");
   });
 };
 
