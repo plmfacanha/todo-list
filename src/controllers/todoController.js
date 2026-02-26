@@ -2,7 +2,7 @@ import Todo from "../models/Todo.js";
 import Project from "../models/Project.js";
 
 const archive = {
-  inbox: [],
+  default: [],
   projects: [],
 };
 
@@ -16,7 +16,7 @@ const addTodo = (task, projectName) => {
   const todo = new Todo(task.trim(), false);
 
   if (!projectName) {
-    archive.inbox.push(todo);
+    archive.default.push(todo);
     return;
   }
 
@@ -35,7 +35,9 @@ const deleteTodo = (task, projectName) => {
   if (!task || !task.trim()) return;
 
   if (!projectName || !projectName.trim()) {
-    archive.inbox = archive.inbox.filter((t) => t.getTitle() !== task.trim());
+    archive.default = archive.default.filter(
+      (t) => t.getTitle() !== task.trim(),
+    );
     return;
   }
 
@@ -52,7 +54,7 @@ const deleteTodo = (task, projectName) => {
 
 const fetchArchive = () => {
   return {
-    inbox: [...archive.inbox],
+    default: [...archive.default],
     projects: [...archive.projects],
   };
 };

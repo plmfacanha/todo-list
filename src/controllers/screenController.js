@@ -1,15 +1,15 @@
 import todoController from "../controllers/todoController.js";
 
 const init = () => {
-  const customDiv = document.querySelector(".custom-div");
+  const inboxDiv = document.querySelector(".custom-div");
   const addTodo = document.querySelector(".custom-btn.add-todo");
 
   addTodo.addEventListener("click", () => {
-    showForm(customDiv, addTodo);
+    showForm(inboxDiv, addTodo);
   });
 };
 
-const updateScreen = (folder) => {
+const updateInbox = (folder) => {
   const archive = todoController.fetchArchive();
   const inbox = document.querySelector(".inbox");
   inbox.textContent = "";
@@ -56,7 +56,7 @@ const showForm = (container, btn) => {
 
     todoController.addTodo(task);
     form.remove();
-    updateScreen("inbox");
+    updateInbox("default");
   });
 };
 
