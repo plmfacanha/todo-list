@@ -17,12 +17,12 @@ const updateInbox = (folder) => {
   if (!folder || folder.trim() === "") return;
 
   archive[folder].forEach((task) => {
-    const li = createTask(task);
+    const li = displayTask(task);
     inbox.appendChild(li);
   });
 };
 
-const createTask = (task) => {
+const displayTask = (task) => {
   const li = document.createElement("li");
   const label = document.createElement("label");
   const input = document.createElement("input");
@@ -46,7 +46,7 @@ const createTask = (task) => {
   label.append(icon, textSpan, input);
 
   li.style.padding = "10px";
-  li.append(label);
+  li.appendChild(label);
 
   input.addEventListener("change", () => {
     if (input.checked) {
@@ -93,6 +93,7 @@ const showForm = (container, btn) => {
     todoController.addTodo(task);
     form.remove();
     updateInbox("default");
+    btn.style.display = "";
   });
 };
 
