@@ -12,19 +12,32 @@ const init = () => {
 const updateInbox = (folder) => {
   const archive = todoController.fetchArchive();
   const inboxDiv = document.querySelector(".inbox-div");
+  const completedDiv = document.querySelector(".completed-div");
 
   if (!folder || folder.trim() === "") return;
 
   inboxDiv.textContent = "";
 
   archive[folder].forEach((todo) => {
-    renderTodo(inboxDiv, todo);
+    const { label, icon, input } = renderTodo(inboxDiv, todo);
+
+    input.addEventListener("change", function () {
+      if (input.checked) {
+        markTodo(completedDiv, label, icon);
+      }
+    });
   });
 };
 
-const renderTodo = (container, todo) => {
-  const completedDiv = document.querySelector(".completed-div");
+const markTodo = (container, label, icon) => {
+  label.classList.add("completed-task");
+  icon.classList.remove("fa-regular", "fa-circle");
+  icon.classList.add("fa-solid", "fa-circle-check");
+  icon.classList.add("completed-icon");
+  container.appendChild(label);
+};
 
+const renderTodo = (container, todo) => {
   const li = document.createElement("li");
   const label = document.createElement("label");
   const input = document.createElement("input");
@@ -52,24 +65,14 @@ const renderTodo = (container, todo) => {
 
   container.appendChild(label);
 
-  input.addEventListener("change", () => {
-    if (input.checked) {
-      label.classList.add("completed-task");
-      icon.classList.remove("fa-regular", "fa-circle");
-      icon.classList.add("fa-solid", "fa-circle-check");
-      icon.classList.add("completed-icon");
-
-      completedDiv.appendChild(label);
-    } else {
-      label.classList.remove("completed-task");
-      icon.classList.remove("fa-solid", "fa-circle-check");
-      icon.classList.add("fa-regular", "fa-circle");
-      icon.classList.remove("completed-icon");
-
-      container.appendChild(label);
-    }
-  });
+  return { label, icon, input };
 };
+
+// const isComplete = (todo) => {
+//   if(todo.checked) {
+
+//   }
+// }
 
 const showForm = (container, btn) => {
   btn.style.display = "none";
