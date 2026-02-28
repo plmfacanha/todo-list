@@ -11,19 +11,19 @@ const init = () => {
 
 const updateInbox = (folder) => {
   const archive = todoController.fetchArchive();
+  const inboxDiv = document.querySelector(".inbox-div");
 
   if (!folder || folder.trim() === "") return;
 
+  inboxDiv.textContent = "";
+
   archive[folder].forEach((todo) => {
-    displayTodo(todo);
+    renderTodo(inboxDiv, todo);
   });
 };
 
-const displayTodo = (todo) => {
-  const inboxDiv = document.querySelector(".inbox-div");
+const renderTodo = (container, todo) => {
   const completedDiv = document.querySelector(".completed-div");
-
-  inboxDiv.textContent = "";
 
   const li = document.createElement("li");
   const label = document.createElement("label");
@@ -50,7 +50,7 @@ const displayTodo = (todo) => {
   li.style.padding = "10px";
   li.appendChild(label);
 
-  inboxDiv.appendChild(label);
+  container.appendChild(label);
 
   input.addEventListener("change", () => {
     if (input.checked) {
@@ -66,7 +66,7 @@ const displayTodo = (todo) => {
       icon.classList.add("fa-regular", "fa-circle");
       icon.classList.remove("completed-icon");
 
-      inboxDiv.appendChild(label);
+      container.appendChild(label);
     }
   });
 };
