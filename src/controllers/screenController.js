@@ -9,7 +9,7 @@ const init = () => {
   });
 };
 
-const updateInbox = (folder) => {
+const renderTodoList = (folder) => {
   const archive = todoController.fetchArchive();
   const inboxDiv = document.querySelector(".inbox-div");
   const completedDiv = document.querySelector(".completed-div");
@@ -22,9 +22,9 @@ const updateInbox = (folder) => {
     const { label, icon, input } = renderTodo(inboxDiv, todo);
 
     input.addEventListener("change", function () {
-      const isMarked = markTodo(label, icon, input);
+      const isCompleted = toggleTodo(label, icon, input);
 
-      if (isMarked) {
+      if (isCompleted) {
         completedDiv.appendChild(label);
       } else {
         inboxDiv.appendChild(label);
@@ -33,8 +33,8 @@ const updateInbox = (folder) => {
   });
 };
 
-const markTodo = (label, icon, input) => {
-  let isMarked;
+const toggleTodo = (label, icon, input) => {
+  let isCompleted;
 
   if (input.checked) {
     label.classList.add("completed-task");
@@ -42,16 +42,16 @@ const markTodo = (label, icon, input) => {
     icon.classList.add("completed-icon");
 
     icon.classList.remove("fa-regular", "fa-circle");
-    isMarked = true;
+    isCompleted = true;
   } else {
     label.classList.remove("completed-task");
     icon.classList.remove("fa-solid", "fa-circle-check");
     icon.classList.remove("completed-icon");
 
     icon.classList.add("fa-regular", "fa-circle");
-    isMarked = false;
+    isCompleted = false;
   }
-  return isMarked;
+  return isCompleted;
 };
 
 const renderTodo = (container, todo) => {
@@ -85,12 +85,6 @@ const renderTodo = (container, todo) => {
   return { label, icon, input };
 };
 
-// const isComplete = (todo) => {
-//   if(todo.checked) {
-
-//   }
-// }
-
 const showForm = (container, btn) => {
   btn.style.display = "none";
 
@@ -118,7 +112,7 @@ const showForm = (container, btn) => {
 
     todoController.addTodo(task);
     form.remove();
-    updateInbox("default");
+    renderTodoList("default");
     btn.style.display = "";
   });
 };
