@@ -55,7 +55,6 @@ const toggleTodo = (label, icon, input) => {
 };
 
 const renderTodo = (container, todo) => {
-  const li = document.createElement("li");
   const label = document.createElement("label");
   const input = document.createElement("input");
   const icon = document.createElement("i");
@@ -76,10 +75,6 @@ const renderTodo = (container, todo) => {
   textSpan.textContent = todo.getTitle();
 
   label.append(icon, textSpan, input);
-
-  li.style.padding = "10px";
-  li.appendChild(label);
-
   container.appendChild(label);
 
   return { label, icon, input };
