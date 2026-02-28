@@ -64,7 +64,8 @@ const renderTodo = (container, todo) => {
   icon.classList.add("fa-regular", "fa-circle");
 
   label.htmlFor = id;
-  label.style.marginLeft = "10px";
+  label.style.padding = "10px";
+  label.style.position = "relative";
 
   input.id = id;
   input.type = "checkbox";
