@@ -22,19 +22,36 @@ const updateInbox = (folder) => {
     const { label, icon, input } = renderTodo(inboxDiv, todo);
 
     input.addEventListener("change", function () {
-      if (input.checked) {
-        markTodo(completedDiv, label, icon);
+      const isMarked = markTodo(label, icon, input);
+
+      if (isMarked) {
+        completedDiv.appendChild(label);
+      } else {
+        inboxDiv.appendChild(label);
       }
     });
   });
 };
 
-const markTodo = (container, label, icon) => {
-  label.classList.add("completed-task");
-  icon.classList.remove("fa-regular", "fa-circle");
-  icon.classList.add("fa-solid", "fa-circle-check");
-  icon.classList.add("completed-icon");
-  container.appendChild(label);
+const markTodo = (label, icon, input) => {
+  let isMarked;
+
+  if (input.checked) {
+    label.classList.add("completed-task");
+    icon.classList.add("fa-solid", "fa-circle-check");
+    icon.classList.add("completed-icon");
+
+    icon.classList.remove("fa-regular", "fa-circle");
+    isMarked = true;
+  } else {
+    label.classList.remove("completed-task");
+    icon.classList.remove("fa-solid", "fa-circle-check");
+    icon.classList.remove("completed-icon");
+
+    icon.classList.add("fa-regular", "fa-circle");
+    isMarked = false;
+  }
+  return isMarked;
 };
 
 const renderTodo = (container, todo) => {
