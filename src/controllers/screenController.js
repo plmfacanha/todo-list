@@ -1,15 +1,6 @@
 import todoController from "../controllers/todoController.js";
 
-const init = () => {
-  const inboxDiv = document.querySelector(".inbox-div");
-  const addTodo = document.querySelector(".custom-btn.add-todo");
-
-  addTodo.addEventListener("click", () => {
-    showForm(inboxDiv, addTodo);
-  });
-};
-
-const renderTodoList = (folder) => {
+const renderTaskList = (folder) => {
   const archive = todoController.fetchArchive();
   const inboxDiv = document.querySelector(".inbox-div");
   const completedDiv = document.querySelector(".completed-div");
@@ -21,37 +12,33 @@ const renderTodoList = (folder) => {
   archive[folder].forEach((todo) => {
     const { label, icon, input } = renderTodo(inboxDiv, todo);
 
-    input.addEventListener("change", function () {
-      const isCompleted = toggleTodo(label, icon, input);
+    input.addEventListener("change", () => {
+      const isCompleted = input.checked;
+
+      todo.setChecklist(isCompleted);
+      toggleTodo(label, icon, isCompleted);
 
       if (isCompleted) {
         completedDiv.appendChild(label);
-      } else {
-        inboxDiv.appendChild(label);
+        return;
       }
+
+      inboxDiv.appendChild(label);
     });
   });
 };
 
-const toggleTodo = (label, icon, input) => {
-  let isCompleted;
-
-  if (input.checked) {
+const toggleTodo = (label, icon, isCompleted) => {
+  if (isCompleted) {
     label.classList.add("completed-task");
-    icon.classList.add("fa-solid", "fa-circle-check");
-    icon.classList.add("completed-icon");
-
+    icon.classList.add("fa-solid", "fa-circle-check", "completed-icon");
     icon.classList.remove("fa-regular", "fa-circle");
-    isCompleted = true;
-  } else {
-    label.classList.remove("completed-task");
-    icon.classList.remove("fa-solid", "fa-circle-check");
-    icon.classList.remove("completed-icon");
-
-    icon.classList.add("fa-regular", "fa-circle");
-    isCompleted = false;
+    return;
   }
-  return isCompleted;
+
+  label.classList.remove("completed-task");
+  icon.classList.remove("fa-solid", "fa-circle-check", "completed-icon");
+  icon.classList.add("fa-regular", "fa-circle");
 };
 
 const renderTodo = (container, todo) => {
@@ -108,9 +95,9 @@ const showForm = (container, btn) => {
 
     todoController.addTodo(task);
     form.remove();
-    renderTodoList("default");
+    renderTaskList("default");
     btn.style.display = "";
   });
 };
 
-export default { init };
+export default { showForm };
