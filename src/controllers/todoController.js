@@ -31,12 +31,12 @@ const addTodo = (task, projectName) => {
   }
 };
 
-const deleteTodo = (task, projectName) => {
-  if (!task || !task.trim()) return;
+const deleteTodo = (todo, projectName) => {
+  if (!todo || !todo.trim()) return;
 
   if (!projectName || !projectName.trim()) {
     archive.default = archive.default.filter(
-      (t) => t.getTitle() !== task.trim(),
+      (t) => t.getTitle() !== todo.trim(),
     );
     return;
   }
@@ -48,7 +48,7 @@ const deleteTodo = (task, projectName) => {
 
   const updatedTodos = project
     .getTodos()
-    .filter((t) => t.getTitle() !== task.trim());
+    .filter((t) => t.getTitle() !== todo.trim());
   project.setTodos(updatedTodos);
 };
 
