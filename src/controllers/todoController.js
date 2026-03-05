@@ -1,5 +1,6 @@
 import Todo from "../models/Todo.js";
 import Project from "../models/Project.js";
+import { parse } from "date-fns";
 
 const archive = {
   default: [],
@@ -11,13 +12,13 @@ const addProject = (project) => {
 };
 
 const addTodo = (task, projectName) => {
-  if (!task || !task.trim()) return;
+  if (!task || !task.trim()) return null;
 
   const todo = new Todo(task.trim(), false, new Date());
 
   if (!projectName) {
     archive.default.push(todo);
-    return;
+    return todo;
   }
 
   const project = archive.projects.find((p) => p.getName() === projectName);
@@ -29,6 +30,8 @@ const addTodo = (task, projectName) => {
     newProject.addTodo(todo);
     addProject(newProject);
   }
+
+  return todo;
 };
 
 const deleteTodo = (todo, projectName) => {
@@ -52,6 +55,19 @@ const deleteTodo = (todo, projectName) => {
   project.setTodos(updatedTodos);
 };
 
+const convertDateFormat = (dueDate) => {
+  const newDate = parse(dueDate, "yyyy-MM-dd", new Date());
+
+  const now = new Date();
+
+  newDate.setHours(now.getHours());
+  newDate.setMinutes(now.getMinutes());
+  newDate.setSeconds(now.getSeconds());
+  newDate.setMilliseconds(now.getMilliseconds());
+
+  return newDate;
+};
+
 const fetchArchive = () => {
   return {
     default: [...archive.default],
@@ -63,5 +79,6 @@ export default {
   addTodo,
   addProject,
   deleteTodo,
+  convertDateFormat,
   fetchArchive,
 };

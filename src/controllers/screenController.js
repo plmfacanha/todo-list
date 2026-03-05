@@ -1,5 +1,4 @@
 import todoController from "../controllers/todoController.js";
-import { format } from "date-fns";
 
 const renderTaskList = (folder) => {
   const archive = todoController.fetchArchive();
@@ -14,6 +13,7 @@ const renderTaskList = (folder) => {
     const { label, icon, input } = renderTodo(inboxDiv, todo);
 
     input.addEventListener("change", () => {
+      const dueDate = todo.getDueDate();
       const isCompleted = input.checked;
 
       todo.setChecklist(isCompleted);
@@ -46,8 +46,7 @@ const renderTodo = (container, todo) => {
   const label = document.createElement("label");
   const input = document.createElement("input");
   const icon = document.createElement("i");
-  const title = document.createElement("span");
-  const calendar = document.createElement("input");
+  const titleSpan = document.createElement("span");
 
   const id = `task-${todo.getTitle()}`;
 
@@ -62,12 +61,9 @@ const renderTodo = (container, todo) => {
   input.style.position = "absolute";
   input.style.opacity = 0;
 
-  title.textContent = todo.getTitle();
+  titleSpan.textContent = todo.getTitle();
 
-  calendar.type = "date";
-  calendar.value = format(todo.getDueDate(), "yyyy-MM-dd");
-
-  label.append(icon, title, input, calendar);
+  label.append(icon, titleSpan, input);
   container.appendChild(label);
 
   return { label, icon, input };
@@ -77,8 +73,12 @@ const showForm = (container, btn) => {
   btn.style.display = "none";
 
   const form = document.createElement("form");
-  const label = document.createElement("label");
-  const input = document.createElement("input");
+  const taskLabel = document.createElement("label");
+  const dueDateLabel = document.createElement("label");
+  const taskInput = document.createElement("input");
+  const dueDateInput = document.createElement("input");
+
+  const inputDiv = document.createElement("div");
 
   const confirmBtn = document.createElement("button");
   const cancelBtn = document.createElement("button");
@@ -86,19 +86,33 @@ const showForm = (container, btn) => {
   confirmBtn.classList.add("confirm-btn");
   cancelBtn.classList.add("cancel-btn");
 
-  label.textContent = "Task: ";
-  input.type = "text";
+  taskLabel.htmlFor = "task";
+  taskLabel.textContent = "Task: ";
+  dueDateLabel.htmlFor = "due-date";
+  dueDateLabel.textContent = "Due Date: ";
+
+  taskInput.id = "task";
+  taskInput.type = "text";
+  dueDateInput.id = "due-date";
+  dueDateInput.type = "date";
+
+  inputDiv.append(taskLabel, taskInput, dueDateLabel, dueDateInput);
+  inputDiv.classList.add("input-div");
+
   confirmBtn.textContent = "Confirm";
   cancelBtn.textContent = "Cancel";
 
-  form.append(label, input, confirmBtn, cancelBtn);
+  form.append(inputDiv, confirmBtn, cancelBtn);
   container.appendChild(form);
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    const task = input.value;
+    const task = taskInput.value;
+    const newDueDate = todoController.convertDateFormat(dueDateInput.value);
 
-    todoController.addTodo(task);
+    const todo = todoController.addTodo(task);
+    todo.setDueDate(newDueDate);
+
     form.remove();
     renderTaskList("default");
     btn.style.display = "";
