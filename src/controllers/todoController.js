@@ -13,7 +13,7 @@ const addProject = (project) => {
 const addTodo = (task, projectName) => {
   if (!task || !task.trim()) return;
 
-  const todo = new Todo(task.trim(), false);
+  const todo = new Todo(task.trim(), false, new Date());
 
   if (!projectName) {
     archive.default.push(todo);

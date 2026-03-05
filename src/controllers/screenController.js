@@ -1,4 +1,5 @@
 import todoController from "../controllers/todoController.js";
+import { format } from "date-fns";
 
 const renderTaskList = (folder) => {
   const archive = todoController.fetchArchive();
@@ -45,6 +46,8 @@ const renderTodo = (container, todo) => {
   const label = document.createElement("label");
   const input = document.createElement("input");
   const icon = document.createElement("i");
+  const title = document.createElement("span");
+  const calendar = document.createElement("input");
 
   const id = `task-${todo.getTitle()}`;
 
@@ -59,10 +62,12 @@ const renderTodo = (container, todo) => {
   input.style.position = "absolute";
   input.style.opacity = 0;
 
-  const textSpan = document.createElement("span");
-  textSpan.textContent = todo.getTitle();
+  title.textContent = todo.getTitle();
 
-  label.append(icon, textSpan, input);
+  calendar.type = "date";
+  calendar.value = format(todo.getDueDate(), "yyyy-MM-dd");
+
+  label.append(icon, title, input, calendar);
   container.appendChild(label);
 
   return { label, icon, input };
