@@ -1,4 +1,5 @@
 import todoController from "../controllers/todoController.js";
+import { differenceInCalendarDays } from "date-fns";
 
 const renderTaskList = (folder) => {
   const archive = todoController.fetchArchive();
@@ -10,10 +11,9 @@ const renderTaskList = (folder) => {
   inboxDiv.textContent = "";
 
   archive[folder].forEach((todo) => {
-    const { label, icon, input } = renderTodo(inboxDiv, todo);
+    const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
 
     input.addEventListener("change", () => {
-      const dueDate = todo.getDueDate();
       const isCompleted = input.checked;
 
       todo.setChecklist(isCompleted);
@@ -21,6 +21,7 @@ const renderTaskList = (folder) => {
 
       if (isCompleted) {
         completedDiv.appendChild(label);
+        deadline.textContent = "DONE!";
         return;
       }
 
@@ -47,14 +48,14 @@ const renderTodo = (container, todo) => {
   const input = document.createElement("input");
   const icon = document.createElement("i");
   const titleSpan = document.createElement("span");
+  const deadline = document.createElement("span");
 
   const id = `task-${todo.getTitle()}`;
 
   icon.classList.add("fa-regular", "fa-circle");
 
   label.htmlFor = id;
-  label.style.padding = "10px";
-  label.style.position = "relative";
+  label.classList.add("list-label");
 
   input.id = id;
   input.type = "checkbox";
@@ -63,10 +64,14 @@ const renderTodo = (container, todo) => {
 
   titleSpan.textContent = todo.getTitle();
 
-  label.append(icon, titleSpan, input);
+  const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
+  deadline.textContent = `This task is due in: ${daysRemaining} days`;
+  deadline.classList.add("deadline-span");
+
+  label.append(icon, titleSpan, input, deadline);
   container.appendChild(label);
 
-  return { label, icon, input };
+  return { label, icon, input, deadline };
 };
 
 const showForm = (container, btn) => {

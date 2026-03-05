@@ -133,6 +133,12 @@ h1 {
   flex-direction: column;
 }
 
+.deadline-span {
+  padding: var(--spacing);
+  border-radius: 10px;
+  margin-left: auto;
+}
+
 /* =========================
    SEMANTIC LAYOUT
    ========================= */
@@ -227,6 +233,14 @@ label {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+}
+
+.list-label {
+  background-color: var(--color-muted);
+  color: white;
+
+  padding: 5px;
+  border-radius: 10px;
 }
 
 i {
