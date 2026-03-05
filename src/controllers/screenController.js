@@ -12,6 +12,7 @@ const renderTaskList = (folder) => {
 
   archive[folder].forEach((todo) => {
     const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
+    const dueDate = deadline.textContent;
 
     input.addEventListener("change", () => {
       const isCompleted = input.checked;
@@ -21,10 +22,10 @@ const renderTaskList = (folder) => {
 
       if (isCompleted) {
         completedDiv.appendChild(label);
-        deadline.textContent = "DONE!";
+        deadline.textContent = "Done!";
         return;
       }
-
+      deadline.textContent = dueDate;
       inboxDiv.appendChild(label);
     });
   });
