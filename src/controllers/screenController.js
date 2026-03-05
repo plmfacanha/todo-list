@@ -6,7 +6,7 @@ const init = () => {
   const addTodo = document.querySelector(".custom-btn.add-todo");
 
   addTodo.addEventListener("click", () => {
-    showForm(inboxDiv, addTodo);
+    renderForm(inboxDiv, addTodo);
   });
 };
 
@@ -84,7 +84,7 @@ const renderTodo = (container, todo) => {
   return { label, icon, input, deadline };
 };
 
-const showForm = (container, btn) => {
+const renderForm = (container, btn) => {
   btn.style.display = "none";
 
   const form = document.createElement("form");
@@ -98,6 +98,7 @@ const showForm = (container, btn) => {
   const confirmBtn = document.createElement("button");
   const cancelBtn = document.createElement("button");
 
+  confirmBtn.type = "submit";
   confirmBtn.classList.add("confirm-btn");
   cancelBtn.classList.add("cancel-btn");
 
@@ -120,17 +121,28 @@ const showForm = (container, btn) => {
   form.append(inputDiv, confirmBtn, cancelBtn);
   container.appendChild(form);
 
-  form.addEventListener("submit", function (e) {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const task = taskInput.value;
+
+    const closeForm = () => {
+      form.remove();
+      btn.style.display = "";
+    };
+
+    const task = taskInput.value.trim();
+    if (!task) {
+      closeForm();
+      return;
+    }
+
     const newDueDate = todoController.convertDateFormat(dueDateInput.value);
-
     const todo = todoController.addTodo(task);
-    todo.setDueDate(newDueDate);
+    if (todo) {
+      todo.setDueDate(newDueDate);
+      renderTaskList("default");
+    }
 
-    form.remove();
-    renderTaskList("default");
-    btn.style.display = "";
+    closeForm();
   });
 };
 
