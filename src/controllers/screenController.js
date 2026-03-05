@@ -1,5 +1,5 @@
 import todoController from "../controllers/todoController.js";
-import { differenceInCalendarDays } from "date-fns";
+import { format, differenceInCalendarDays } from "date-fns";
 
 const init = () => {
   const inboxDiv = document.querySelector(".inbox-div");
@@ -10,7 +10,9 @@ const init = () => {
   });
 };
 
-const renderTaskList = (folder) => {
+const saveToLocalStorage = () => {};
+
+const renderTodoList = (folder) => {
   const archive = todoController.fetchArchive();
   const inboxDiv = document.querySelector(".inbox-div");
   const completedDiv = document.querySelector(".completed-div");
@@ -121,25 +123,41 @@ const renderForm = (container, btn) => {
   form.append(inputDiv, confirmBtn, cancelBtn);
   container.appendChild(form);
 
+  const closeForm = () => {
+    form.remove();
+    btn.style.display = "";
+  };
+
+  cancelBtn.addEventListener("click", function () {
+    closeForm();
+  });
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const closeForm = () => {
-      form.remove();
-      btn.style.display = "";
-    };
-
     const task = taskInput.value.trim();
     if (!task) {
-      closeForm();
+      alert("Task cannot be empty!");
       return;
     }
 
-    const newDueDate = todoController.convertDateFormat(dueDateInput.value);
+    const dueDate = dueDateInput.value;
+    if (!dueDate) {
+      alert("Please pick a due date!");
+      return;
+    }
+
+    const currentDate = format(new Date(), "yyyy-MM-dd");
+    if (dueDate < currentDate) {
+      alert("Please pick a date greater than today!");
+      return;
+    }
+
+    const todoDueDate = todoController.convertDateFormat(dueDate);
     const todo = todoController.addTodo(task);
     if (todo) {
-      todo.setDueDate(newDueDate);
-      renderTaskList("default");
+      todo.setDueDate(todoDueDate);
+      renderTodoList("default");
     }
 
     closeForm();
