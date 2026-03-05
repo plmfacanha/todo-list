@@ -1,6 +1,15 @@
 import todoController from "../controllers/todoController.js";
 import { differenceInCalendarDays } from "date-fns";
 
+const init = () => {
+  const inboxDiv = document.querySelector(".inbox-div");
+  const addTodo = document.querySelector(".custom-btn.add-todo");
+
+  addTodo.addEventListener("click", () => {
+    showForm(inboxDiv, addTodo);
+  });
+};
+
 const renderTaskList = (folder) => {
   const archive = todoController.fetchArchive();
   const inboxDiv = document.querySelector(".inbox-div");
@@ -9,7 +18,7 @@ const renderTaskList = (folder) => {
   if (!folder || folder.trim() === "") return;
 
   inboxDiv.textContent = "";
-
+  console.log(Storage);
   archive[folder].forEach((todo) => {
     const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
     const dueDate = deadline.textContent;
@@ -125,4 +134,4 @@ const showForm = (container, btn) => {
   });
 };
 
-export default { showForm };
+export default { init };
