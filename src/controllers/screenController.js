@@ -5,14 +5,16 @@ const init = () => {
   const inboxDiv = document.querySelector(".inbox-div");
   const addTodo = document.querySelector(".custom-btn.add-todo");
 
+  if (!localStorage.getItem("todoList")) {
+    populateStorage();
+  } else {
+    setStyles();
+  }
+
   addTodo.addEventListener("click", () => {
     renderForm(inboxDiv, addTodo);
   });
 };
-
-const populateStorage = () => {};
-
-const setDefaultList = () => {};
 
 const renderTodoList = (folder) => {
   const archive = todoController.fetchArchive();
