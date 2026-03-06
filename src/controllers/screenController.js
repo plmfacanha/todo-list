@@ -10,7 +10,9 @@ const init = () => {
   });
 };
 
-const saveToLocalStorage = () => {};
+const populateStorage = () => {};
+
+const setDefaultList = () => {};
 
 const renderTodoList = (folder) => {
   const archive = todoController.fetchArchive();
@@ -20,7 +22,10 @@ const renderTodoList = (folder) => {
   if (!folder || folder.trim() === "") return;
 
   inboxDiv.textContent = "";
-  console.log(Storage);
+
+  // TODO: fetch Todo's object (parsed) from localStorage and render in the screen
+  // 1. Store archive somehow in localStorage
+  // 2. Fetch each todo from localStorage and display in the screen
   archive[folder].forEach((todo) => {
     const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
     const dueDate = deadline.textContent;
@@ -53,37 +58,6 @@ const toggleTodo = (label, icon, isCompleted) => {
   label.classList.remove("completed-task");
   icon.classList.remove("fa-solid", "fa-circle-check", "completed-icon");
   icon.classList.add("fa-regular", "fa-circle");
-};
-
-const renderTodo = (container, todo) => {
-  const label = document.createElement("label");
-  const input = document.createElement("input");
-  const icon = document.createElement("i");
-  const titleSpan = document.createElement("span");
-  const deadline = document.createElement("span");
-
-  const id = `task-${todo.getTitle()}`;
-
-  icon.classList.add("fa-regular", "fa-circle");
-
-  label.htmlFor = id;
-  label.classList.add("list-label");
-
-  input.id = id;
-  input.type = "checkbox";
-  input.style.position = "absolute";
-  input.style.opacity = 0;
-
-  titleSpan.textContent = todo.getTitle();
-
-  const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
-  deadline.textContent = `This task is due in: ${daysRemaining} days`;
-  deadline.classList.add("deadline-span");
-
-  label.append(icon, titleSpan, input, deadline);
-  container.appendChild(label);
-
-  return { label, icon, input, deadline };
 };
 
 const renderForm = (container, btn) => {
@@ -162,6 +136,37 @@ const renderForm = (container, btn) => {
 
     closeForm();
   });
+};
+
+const renderTodo = (container, todo) => {
+  const label = document.createElement("label");
+  const input = document.createElement("input");
+  const icon = document.createElement("i");
+  const titleSpan = document.createElement("span");
+  const deadline = document.createElement("span");
+
+  const id = `task-${todo.getTitle()}`;
+
+  icon.classList.add("fa-regular", "fa-circle");
+
+  label.htmlFor = id;
+  label.classList.add("list-label");
+
+  input.id = id;
+  input.type = "checkbox";
+  input.style.position = "absolute";
+  input.style.opacity = 0;
+
+  titleSpan.textContent = todo.getTitle();
+
+  const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
+  deadline.textContent = `This task is due in: ${daysRemaining} days`;
+  deadline.classList.add("deadline-span");
+
+  label.append(icon, titleSpan, input, deadline);
+  container.appendChild(label);
+
+  return { label, icon, input, deadline };
 };
 
 export default { init };
