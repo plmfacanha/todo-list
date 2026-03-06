@@ -5,16 +5,22 @@ const init = () => {
   const inboxDiv = document.querySelector(".inbox-div");
   const addTodo = document.querySelector(".custom-btn.add-todo");
 
-  if (!localStorage.getItem("todoList")) {
+  if (!localStorage.getItem("whatever")) {
     populateStorage();
   } else {
-    setStyles();
+    setTodoList();
   }
 
   addTodo.addEventListener("click", () => {
     renderForm(inboxDiv, addTodo);
   });
 };
+
+const populateStorage = () => {
+  console.log(localStorage);
+};
+
+const setTodoList = () => {};
 
 const renderTodoList = (folder) => {
   const archive = todoController.fetchArchive();
@@ -25,10 +31,15 @@ const renderTodoList = (folder) => {
 
   inboxDiv.textContent = "";
 
-  // TODO: fetch Todo's object (parsed) from localStorage and render in the screen
-  // 1. Store archive somehow in localStorage
-  // 2. Fetch each todo from localStorage and display in the screen
+  let count = 0;
   archive[folder].forEach((todo) => {
+    const todoObject = {
+      task: todo.getTitle(),
+      dueDate: todo.getDueDate(),
+    };
+
+    localStorage.setItem(`todo-${count}`, JSON.stringify(todoObject));
+
     const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
     const dueDate = deadline.textContent;
 
@@ -46,20 +57,8 @@ const renderTodoList = (folder) => {
       deadline.textContent = dueDate;
       inboxDiv.appendChild(label);
     });
+    count++;
   });
-};
-
-const toggleTodo = (label, icon, isCompleted) => {
-  if (isCompleted) {
-    label.classList.add("completed-task");
-    icon.classList.add("fa-solid", "fa-circle-check", "completed-icon");
-    icon.classList.remove("fa-regular", "fa-circle");
-    return;
-  }
-
-  label.classList.remove("completed-task");
-  icon.classList.remove("fa-solid", "fa-circle-check", "completed-icon");
-  icon.classList.add("fa-regular", "fa-circle");
 };
 
 const renderForm = (container, btn) => {
@@ -131,6 +130,7 @@ const renderForm = (container, btn) => {
 
     const todoDueDate = todoController.convertDateFormat(dueDate);
     const todo = todoController.addTodo(task);
+
     if (todo) {
       todo.setDueDate(todoDueDate);
       renderTodoList("default");
@@ -169,6 +169,19 @@ const renderTodo = (container, todo) => {
   container.appendChild(label);
 
   return { label, icon, input, deadline };
+};
+
+const toggleTodo = (label, icon, isCompleted) => {
+  if (isCompleted) {
+    label.classList.add("completed-task");
+    icon.classList.add("fa-solid", "fa-circle-check", "completed-icon");
+    icon.classList.remove("fa-regular", "fa-circle");
+    return;
+  }
+
+  label.classList.remove("completed-task");
+  icon.classList.remove("fa-solid", "fa-circle-check", "completed-icon");
+  icon.classList.add("fa-regular", "fa-circle");
 };
 
 export default { init };
