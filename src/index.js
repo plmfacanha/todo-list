@@ -8,8 +8,4 @@ if (!localStorage.getItem("whatever")) {
   setTodoList();
 }
 
-const populateStorage = () => {};
-
-const setTodoList = () => {};
-
 screenController.init();
