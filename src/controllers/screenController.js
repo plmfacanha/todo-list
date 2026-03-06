@@ -5,22 +5,10 @@ const init = () => {
   const inboxDiv = document.querySelector(".inbox-div");
   const addTodo = document.querySelector(".custom-btn.add-todo");
 
-  if (!localStorage.getItem("whatever")) {
-    populateStorage();
-  } else {
-    setTodoList();
-  }
-
   addTodo.addEventListener("click", () => {
     renderForm(inboxDiv, addTodo);
   });
 };
-
-const populateStorage = () => {
-  console.log(localStorage);
-};
-
-const setTodoList = () => {};
 
 const renderTodoList = (folder) => {
   const archive = todoController.fetchArchive();
@@ -31,15 +19,7 @@ const renderTodoList = (folder) => {
 
   inboxDiv.textContent = "";
 
-  let count = 0;
   archive[folder].forEach((todo) => {
-    const todoObject = {
-      task: todo.getTitle(),
-      dueDate: todo.getDueDate(),
-    };
-
-    localStorage.setItem(`todo-${count}`, JSON.stringify(todoObject));
-
     const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
     const dueDate = deadline.textContent;
 
