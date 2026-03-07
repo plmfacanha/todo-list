@@ -7,13 +7,15 @@ const archive = {
   projects: [],
 };
 
-const populateStorage = (todo) => {
+const loadStorage = (todo) => {
   const id = todo.getId();
   todo.title = todo.getTitle();
   todo.dueDate = todo.getDueDate();
 
   localStorage.setItem(`todo-${id}`, JSON.stringify(todo));
 };
+
+const saveStorage = () => {};
 
 const addProject = (project) => {
   archive.projects.push(project);
@@ -88,5 +90,5 @@ export default {
   deleteTodo,
   convertDateFormat,
   fetchArchive,
-  populateStorage,
+  loadStorage,
 };
