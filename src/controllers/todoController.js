@@ -2,9 +2,12 @@ import Todo from "../models/Todo.js";
 import Project from "../models/Project.js";
 import { parse } from "date-fns";
 
-const archive = {
-  default: [],
-  projects: [],
+const populateStorage = (todo) => {
+  const id = todo.getId();
+  todo.title = todo.getTitle();
+  todo.dueDate = todo.getDueDate();
+
+  localStorage.setItem(`todo-${id}`, JSON.stringify(todo));
 };
 
 const addProject = (project) => {
@@ -17,10 +20,6 @@ const addTodo = (task, checklist, dueDate, projectName) => {
   const todo = new Todo(task.trim(), checklist, dueDate);
   if (!projectName) {
     archive.default.push(todo);
-    todo.dueDate = todo.getDueDate();
-    todo.title = todo.getTitle();
-    localStorage.setItem("todo", JSON.stringify(todo));
-    console.log(localStorage);
     return todo;
   }
 
@@ -84,4 +83,5 @@ export default {
   deleteTodo,
   convertDateFormat,
   fetchArchive,
+  populateStorage,
 };

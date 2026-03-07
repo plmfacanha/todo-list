@@ -1,13 +1,18 @@
 export default class Todo {
+  #id;
   #title;
   #checklist;
   #dueDate;
 
   constructor(title, checklist, dueDate) {
-    this.id = Math.floor(Math.random() * 1_000_000);
+    this.#id = Math.floor(Math.random() * 1_000_000);
     this.#title = title;
     this.#checklist = checklist;
     this.#dueDate = dueDate;
+  }
+
+  getId() {
+    return this.#id;
   }
 
   getTitle() {
