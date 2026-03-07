@@ -7,19 +7,14 @@ const archive = {
   projects: [],
 };
 
-const addLocalStorage = () => {};
-
-const setLocalStorage = () => {};
-
 const addProject = (project) => {
   archive.projects.push(project);
 };
 
-const addTodo = (task, projectName) => {
+const addTodo = (task, checklist, dueDate, projectName) => {
   if (!task || !task.trim()) return null;
 
-  const todo = new Todo(task.trim(), false, new Date());
-
+  const todo = new Todo(task.trim(), checklist, dueDate);
   if (!projectName) {
     archive.default.push(todo);
     return todo;

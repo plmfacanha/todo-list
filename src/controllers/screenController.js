@@ -37,7 +37,6 @@ const renderTodoList = (folder) => {
       deadline.textContent = dueDate;
       inboxDiv.appendChild(label);
     });
-    count++;
   });
 };
 
@@ -109,10 +108,9 @@ const renderForm = (container, btn) => {
     }
 
     const todoDueDate = todoController.convertDateFormat(dueDate);
-    const todo = todoController.addTodo(task);
+    const todo = todoController.addTodo(task, false, todoDueDate);
 
     if (todo) {
-      todo.setDueDate(todoDueDate);
       renderTodoList("default");
     }
 
