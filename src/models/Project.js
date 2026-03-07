@@ -9,6 +9,10 @@ export default class Project {
     this.#todos = [];
   }
 
+  getId() {
+    return this.#id;
+  }
+
   getName() {
     return this.#name;
   }

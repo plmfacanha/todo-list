@@ -7,7 +7,15 @@ const archive = {
   projects: [],
 };
 
-const loadStorage = () => {};
+const loadStorage = () => {
+  console.log(localStorage);
+
+  const id = localStorage.key("todo");
+  console.log("This is the id: ", id);
+
+  const todo = JSON.parse(localStorage[id]);
+  console.log("This is the todo properties: ", todo);
+};
 
 const updateStorage = (item) => {
   if (item instanceof Todo) {
@@ -15,7 +23,7 @@ const updateStorage = (item) => {
     item.title = item.getTitle();
     item.dueDate = item.getDueDate();
 
-    localStorage.setItem(`todo-${id}`, JSON.stringify(todo));
+    localStorage.setItem(`todo-${id}`, JSON.stringify(item));
   }
 };
 
