@@ -2,6 +2,11 @@ import Todo from "../models/Todo.js";
 import Project from "../models/Project.js";
 import { parse } from "date-fns";
 
+const archive = {
+  default: [],
+  projects: [],
+};
+
 const populateStorage = (todo) => {
   const id = todo.getId();
   todo.title = todo.getTitle();
