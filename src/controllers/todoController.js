@@ -7,9 +7,9 @@ const archive = {
   projects: [],
 };
 
-const populateStorage = () => {};
+const addLocalStorage = () => {};
 
-const setTodoList = () => {};
+const setLocalStorage = () => {};
 
 const addProject = (project) => {
   archive.projects.push(project);
