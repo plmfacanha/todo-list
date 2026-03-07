@@ -8,13 +8,19 @@ const archive = {
 };
 
 const loadStorage = () => {
-  console.log(localStorage);
+  console.log("Total data items in the storage: ", localStorage);
+  let todo = {};
+  let id;
+  let count = 0;
 
-  const id = localStorage.key("todo");
-  console.log("This is the id: ", id);
+  for (let i = 0; i < localStorage.length; ++i) {
+    id = localStorage.key("todo");
+    todo = JSON.parse(localStorage.getItem(id));
+    ++count;
+  }
 
-  const todo = JSON.parse(localStorage[id]);
-  console.log("This is the todo properties: ", todo);
+  todo.id = id;
+  console.log(todo);
 };
 
 const updateStorage = (item) => {
@@ -23,7 +29,7 @@ const updateStorage = (item) => {
     item.title = item.getTitle();
     item.dueDate = item.getDueDate();
 
-    localStorage.setItem(`todo-${id}`, JSON.stringify(item));
+    localStorage.setItem(`${id}`, JSON.stringify(item));
   }
 };
 
