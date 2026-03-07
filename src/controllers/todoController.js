@@ -7,15 +7,17 @@ const archive = {
   projects: [],
 };
 
-const loadStorage = (todo) => {
-  const id = todo.getId();
-  todo.title = todo.getTitle();
-  todo.dueDate = todo.getDueDate();
+const loadStorage = () => {};
 
-  localStorage.setItem(`todo-${id}`, JSON.stringify(todo));
+const updateStorage = (item) => {
+  if (item instanceof Todo) {
+    const id = item.getId();
+    item.title = item.getTitle();
+    item.dueDate = item.getDueDate();
+
+    localStorage.setItem(`todo-${id}`, JSON.stringify(todo));
+  }
 };
-
-const saveStorage = () => {};
 
 const addProject = (project) => {
   archive.projects.push(project);
@@ -27,6 +29,7 @@ const addTodo = (task, checklist, dueDate, projectName) => {
   const todo = new Todo(task.trim(), checklist, dueDate);
   if (!projectName) {
     archive.default.push(todo);
+    loadStorage(todo);
     return todo;
   }
 
@@ -91,4 +94,5 @@ export default {
   convertDateFormat,
   fetchArchive,
   loadStorage,
+  updateStorage,
 };
