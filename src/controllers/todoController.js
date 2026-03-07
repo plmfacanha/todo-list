@@ -17,6 +17,10 @@ const addTodo = (task, checklist, dueDate, projectName) => {
   const todo = new Todo(task.trim(), checklist, dueDate);
   if (!projectName) {
     archive.default.push(todo);
+    todo.dueDate = todo.getDueDate();
+    todo.title = todo.getTitle();
+    localStorage.setItem("todo", JSON.stringify(todo));
+    console.log(localStorage);
     return todo;
   }
 
