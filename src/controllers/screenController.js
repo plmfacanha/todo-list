@@ -111,7 +111,6 @@ const renderForm = (container, btn) => {
     const todo = todoController.addTodo(task, false, todoDueDate);
 
     if (todo) {
-      todoController.updateStorage(todo);
       renderTodoList("default");
     }
 

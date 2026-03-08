@@ -9,27 +9,27 @@ const archive = {
 
 const loadStorage = () => {
   console.log("Total data items in the storage: ", localStorage);
-  let todo = {};
+  const todo = {};
   let id;
   let count = 0;
 
   for (let i = 0; i < localStorage.length; ++i) {
-    id = localStorage.key("todo");
+    id = localStorage.key(i);
     todo = JSON.parse(localStorage.getItem(id));
     ++count;
   }
 
-  todo.id = id;
   console.log(todo);
 };
 
 const updateStorage = (item) => {
   if (item instanceof Todo) {
     const id = item.getId();
+    item.id = id;
     item.title = item.getTitle();
     item.dueDate = item.getDueDate();
 
-    localStorage.setItem(`${id}`, JSON.stringify(item));
+    localStorage.setItem(`item-${id}`, JSON.stringify(item));
   }
 };
 
@@ -43,7 +43,7 @@ const addTodo = (task, checklist, dueDate, projectName) => {
   const todo = new Todo(task.trim(), checklist, dueDate);
   if (!projectName) {
     archive.default.push(todo);
-    loadStorage(todo);
+    updateStorage(todo);
     return todo;
   }
 
