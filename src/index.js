@@ -3,6 +3,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import screenController from "./controllers/screenController.js";
 import todoController from "./controllers/todoController.js";
 
+localStorage.clear();
+
 if (!localStorage.length) {
   console.log("It's empty!");
 } else {
