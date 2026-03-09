@@ -11,7 +11,7 @@ const init = () => {
 };
 
 const renderTodoList = (folder) => {
-  const archive = todoController.fetchArchive();
+  const archive = todoController.loadStorage();
   const inboxDiv = document.querySelector(".inbox-div");
   const completedDiv = document.querySelector(".completed-div");
 
@@ -109,9 +109,9 @@ const renderForm = (container, btn) => {
 
     todoController.addTodo(task.trim(), dueDate);
 
-    // if (todo) {
-    //   renderTodoList("default");
-    // }
+    if (todo) {
+      renderTodoList("default");
+    }
 
     closeForm();
   });

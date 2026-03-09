@@ -48,7 +48,7 @@ export default class Todo {
       id: this.#id,
       title: this.#title,
       checklist: this.#checklist,
-      dueDate: this.#dueDate?.toISOString?.() ?? this.#dueDate,
+      dueDate: this.#dueDate,
     };
   }
 

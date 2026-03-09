@@ -9,7 +9,6 @@ if (!localStorage.length) {
   console.log("It's empty!");
 } else {
   console.log("It's not empty!");
-  todoController.loadStorage();
 }
 
 screenController.init();

@@ -5,15 +5,20 @@ import { parse } from "date-fns";
 const loadStorage = () => {
   const archive = {
     default: [],
-    project: [],
+    projects: [],
   };
 
   for (let i = 0; i < localStorage.length; ++i) {
     const key = localStorage.key(i);
     const raw = JSON.parse(localStorage.getItem(key));
 
-    const todo = Todo.fromJSON(raw);
-    archive.default.push(todo);
+    if (key.startsWith("item")) {
+      const todo = Todo.fromJSON(raw);
+      archive.default.push(todo);
+    } else if (key.startsWith("project")) {
+      const project = Project.fromJSON(raw);
+      archive.projects.push(project);
+    }
   }
 
   return archive;
@@ -30,7 +35,7 @@ const updateStorage = (item) => {
 };
 
 const addProject = (project) => {
-  archive.projects.push(project);
+  updateStorage(project);
 };
 
 const addTodo = (task, dueDate) => {
@@ -76,13 +81,6 @@ const convertDateFormat = (dueDate) => {
 
   return newDate;
 };
-
-// const fetchArchive = () => {
-//   return {
-//     default: [...archive.default],
-//     projects: [...archive.projects],
-//   };
-// };
 
 export default {
   addTodo,
