@@ -136,9 +136,7 @@ const renderTodo = (container, todo) => {
 
   titleSpan.textContent = todo.getTitle();
 
-  const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
-  deadline.textContent = `This task is due in: ${daysRemaining + 1} days`;
-  deadline.classList.add("deadline-span");
+  displayDaysRemaining(todo, deadline);
 
   label.append(icon, titleSpan, input, deadline);
   container.appendChild(label);
@@ -159,4 +157,17 @@ const checkTodo = (label, icon, status) => {
   icon.classList.add("fa-regular", "fa-circle");
 };
 
+const displayDaysRemaining = (todo, container) => {
+  const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
+  console.log(daysRemaining);
+  if (daysRemaining == 0) {
+    container.textContent = `This task is due today!`;
+  } else if (daysRemaining == -1) {
+    container.textContent = `This task is due tomorrow!`;
+  } else {
+    container.textContent = `This task is due in: ${daysRemaining + 1} days`;
+  }
+
+  container.classList.add("deadline-span");
+};
 export default { init };
