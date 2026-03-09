@@ -23,8 +23,16 @@ const renderTodoList = (folder) => {
   inboxDiv.textContent = "";
 
   archive[folder].forEach((todo) => {
+    console.log(todo);
+
     const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
     const dueDate = deadline.textContent;
+
+    if (todo.getChecklist()) {
+      completedDiv.appendChild(label);
+      deadline.textContent = "Done!";
+      toggleTodo(label, icon, todo.getChecklist());
+    }
 
     input.addEventListener("change", () => {
       const isCompleted = input.checked;
@@ -35,6 +43,7 @@ const renderTodoList = (folder) => {
       if (isCompleted) {
         completedDiv.appendChild(label);
         deadline.textContent = "Done!";
+        todoController.updateStorage(todo);
         return;
       }
       deadline.textContent = dueDate;
