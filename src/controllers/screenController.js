@@ -33,6 +33,7 @@ const renderTodoList = (folder) => {
     } else {
       inboxDiv.appendChild(label);
     }
+
     checkTodo(label, icon, status);
 
     input.addEventListener("change", () => {
@@ -44,8 +45,8 @@ const renderTodoList = (folder) => {
   });
 };
 
-const createForm = (container) => {
-  container.textContent = "";
+const createForm = (dialog) => {
+  dialog.textContent = "";
 
   const form = document.createElement("form");
   const taskLabel = document.createElement("label");
@@ -80,11 +81,11 @@ const createForm = (container) => {
   cancelBtn.type = "button";
 
   form.append(inputDiv, confirmBtn, cancelBtn);
-  container.appendChild(form);
+  dialog.appendChild(form);
 
   cancelBtn.addEventListener("click", function () {
     form.remove();
-    container.close();
+    dialog.close();
   });
 
   form.addEventListener("submit", (e) => {
@@ -110,7 +111,7 @@ const createForm = (container) => {
     todoController.addTodo(task.trim(), dueDate);
     renderTodoList("default");
     form.remove();
-    container.close();
+    dialog.close();
   });
 };
 
