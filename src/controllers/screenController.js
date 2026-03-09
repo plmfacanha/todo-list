@@ -27,14 +27,14 @@ const renderTodoList = (folder) => {
     const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
     const dueDate = deadline.textContent;
 
-    let status = todo.getChecklist();
-    if (status) {
+    let currentStatus = todo.getChecklist();
+    if (currentStatus) {
       completedDiv.appendChild(label);
       deadline.textContent = "Done!";
     } else {
       inboxDiv.appendChild(label);
     }
-    checkTodo(label, icon, status);
+    checkTodo(label, icon, currentStatus);
 
     input.addEventListener("change", () => {
       let updatedStatus = input.checked;
