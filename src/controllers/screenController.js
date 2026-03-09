@@ -21,33 +21,26 @@ const renderTodoList = (folder) => {
   if (!folder || folder.trim() === "") return;
 
   inboxDiv.textContent = "";
+  completedDiv.textContent = "";
 
   archive[folder].forEach((todo) => {
-    console.log(todo);
-
     const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
     const dueDate = deadline.textContent;
 
-    if (todo.getChecklist()) {
+    let status = todo.getChecklist();
+    if (status) {
       completedDiv.appendChild(label);
       deadline.textContent = "Done!";
-      toggleTodo(label, icon, todo.getChecklist());
+    } else {
+      inboxDiv.appendChild(label);
     }
+    checkTodo(label, icon, status);
 
     input.addEventListener("change", () => {
-      const isCompleted = input.checked;
-
-      todo.setChecklist(isCompleted);
-      toggleTodo(label, icon, isCompleted);
-
-      if (isCompleted) {
-        completedDiv.appendChild(label);
-        deadline.textContent = "Done!";
-        todoController.updateStorage(todo);
-        return;
-      }
-      deadline.textContent = dueDate;
-      inboxDiv.appendChild(label);
+      let updatedStatus = input.checked;
+      if (updatedStatus) todo.setChecklist(!status);
+      todoController.updateStorage(todo);
+      renderTodoList("default");
     });
   });
 };
@@ -153,8 +146,8 @@ const renderTodo = (container, todo) => {
   return { label, icon, input, deadline };
 };
 
-const toggleTodo = (label, icon, isCompleted) => {
-  if (isCompleted) {
+const checkTodo = (label, icon, status) => {
+  if (status) {
     label.classList.add("completed-task");
     icon.classList.add("fa-solid", "fa-circle-check", "completed-icon");
     icon.classList.remove("fa-regular", "fa-circle");
