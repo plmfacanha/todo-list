@@ -108,8 +108,6 @@ const createForm = (container) => {
     renderTodoList("default");
     container.close();
   });
-
-  return form;
 };
 
 const renderTodo = (container, todo) => {
