@@ -20,13 +20,13 @@ const loadStorage = () => {
       archive.projects.push(project);
     }
   }
-
   return archive;
 };
 
 const updateStorage = (item) => {
   if (item instanceof Todo) {
-    localStorage.setItem(`item-${item.id}`, JSON.stringify(item));
+    const id = item.getId();
+    localStorage.setItem(`item-${id}`, JSON.stringify(item));
   }
 
   if (item instanceof Project) {
@@ -45,7 +45,6 @@ const addTodo = (task, dueDate) => {
 
   const todo = new Todo(task.trim(), false, dueDate);
   updateStorage(todo);
-  return todo;
 };
 
 const deleteTodo = (todo, projectName) => {

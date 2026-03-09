@@ -8,6 +8,8 @@ const init = () => {
   addTodo.addEventListener("click", () => {
     renderForm(inboxDiv, addTodo);
   });
+
+  renderTodoList("default");
 };
 
 const renderTodoList = (folder) => {
@@ -109,10 +111,7 @@ const renderForm = (container, btn) => {
 
     todoController.addTodo(task.trim(), dueDate);
 
-    if (todo) {
-      renderTodoList("default");
-    }
-
+    renderTodoList("default");
     closeForm();
   });
 };
