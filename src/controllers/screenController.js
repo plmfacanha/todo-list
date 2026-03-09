@@ -159,7 +159,6 @@ const checkTodo = (label, icon, status) => {
 
 const displayDaysRemaining = (todo, container) => {
   const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
-  console.log(daysRemaining);
   if (daysRemaining == 0) {
     container.textContent = `This task is due today!`;
   } else if (daysRemaining == -1) {
