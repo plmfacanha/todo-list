@@ -2,27 +2,11 @@ import Todo from "../models/Todo.js";
 import Project from "../models/Project.js";
 import { parse } from "date-fns";
 
-const archive = {
-  default: [],
-  projects: [],
-};
-
 const loadStorage = () => {
-  console.log("Total data items in the storage: ", localStorage);
-  const todo = {};
-  let id;
-  let count = 0;
-
-  for (let i = 0; i < localStorage.length; ++i) {
-    id = localStorage.key(i);
-    todo = JSON.parse(localStorage.getItem(id));
-    ++count;
-  }
-
-  console.log(todo);
+  console.log(loadStorage);
 };
 
-const updateStorage = (item) => {
+const updateStorage = () => {
   if (item instanceof Todo) {
     const id = item.getId();
     item.id = id;
@@ -37,26 +21,13 @@ const addProject = (project) => {
   archive.projects.push(project);
 };
 
-const addTodo = (task, checklist, dueDate, projectName) => {
+const addTodo = (task, dueDate) => {
   if (!task || !task.trim()) return null;
 
+  if (!dueDate) return null;
+
   const todo = new Todo(task.trim(), checklist, dueDate);
-  if (!projectName) {
-    archive.default.push(todo);
-    updateStorage(todo);
-    return todo;
-  }
-
-  const project = archive.projects.find((p) => p.getName() === projectName);
-
-  if (project) {
-    project.addTodo(todo);
-  } else {
-    const newProject = new Project(projectName);
-    newProject.addTodo(todo);
-    addProject(newProject);
-  }
-
+  updateStorage(todo);
   return todo;
 };
 
