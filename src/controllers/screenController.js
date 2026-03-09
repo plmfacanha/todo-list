@@ -137,7 +137,7 @@ const renderTodo = (container, todo) => {
   titleSpan.textContent = todo.getTitle();
 
   const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
-  deadline.textContent = `This task is due in: ${daysRemaining} days`;
+  deadline.textContent = `This task is due in: ${daysRemaining + 1} days`;
   deadline.classList.add("deadline-span");
 
   label.append(icon, titleSpan, input, deadline);
