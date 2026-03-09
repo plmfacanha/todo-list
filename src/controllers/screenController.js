@@ -44,6 +44,8 @@ const renderTodoList = (folder) => {
 };
 
 const createForm = (container) => {
+  container.textContent = "";
+
   const form = document.createElement("form");
   const taskLabel = document.createElement("label");
   const dueDateLabel = document.createElement("label");
@@ -54,8 +56,6 @@ const createForm = (container) => {
 
   const confirmBtn = document.createElement("button");
   const cancelBtn = document.createElement("button");
-
-  form.style.margin = "0 auto";
 
   confirmBtn.type = "submit";
   confirmBtn.classList.add("confirm-btn");
@@ -108,6 +108,7 @@ const createForm = (container) => {
 
     todoController.addTodo(task.trim(), dueDate);
     renderTodoList("default");
+    form.remove();
     container.close();
   });
 };

@@ -131,6 +131,18 @@ h1 {
 .input-div {
   display: flex;
   flex-direction: column;
+  gap: 6px;
+}
+
+.input-div > label {
+  gap: 6px;
+}
+
+.input-div > input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--color-muted);
+  border-radius: 6px;
 }
 
 .deadline-span {
@@ -250,28 +262,23 @@ i {
 
 form {
   display: grid;
-  grid-template-columns: repeat(6, 25%);
-  grid-template-rows: auto auto;
-
-  padding: 5px;
-  width: 400px;
-  /* margin: 0 auto; */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 15px;
+  width: 100%;
 }
 
 form > div {
-  grid-column: 3 / -1;
-  grid-row: 1;
-
-  margin-bottom: 5px;
+  grid-column: 1 / -1;
 }
 
 form > .confirm-btn {
-  grid-column: 3 / 5;
+  grid-column: 1;
   grid-row: 2;
 }
 
 form > .cancel-btn {
-  grid-column: 5 / -1;
+  grid-column: 2;
   grid-row: 2;
 }
 
@@ -287,5 +294,7 @@ footer {
 
 dialog {
   margin: auto;
-  width: 600px;
+  width: clamp(400px, 50vw, 600px);
+  padding: 0;
+  border-radius: var(--spacing);
 }
