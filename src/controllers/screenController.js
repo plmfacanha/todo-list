@@ -55,6 +55,8 @@ const createForm = (container) => {
   const confirmBtn = document.createElement("button");
   const cancelBtn = document.createElement("button");
 
+  form.style.margin = "0 auto";
+
   confirmBtn.type = "submit";
   confirmBtn.classList.add("confirm-btn");
   cancelBtn.classList.add("cancel-btn");
