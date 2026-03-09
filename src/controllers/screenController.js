@@ -2,11 +2,12 @@ import todoController from "../controllers/todoController.js";
 import { format, differenceInCalendarDays } from "date-fns";
 
 const init = () => {
-  const inboxDiv = document.querySelector(".inbox-div");
+  const dialog = document.querySelector("dialog");
   const addTodo = document.querySelector(".custom-btn.add-todo");
 
   addTodo.addEventListener("click", () => {
-    renderForm(inboxDiv, addTodo);
+    createForm(dialog);
+    dialog.showModal();
   });
 
   renderTodoList("default");
@@ -42,9 +43,7 @@ const renderTodoList = (folder) => {
   });
 };
 
-const renderForm = (container, btn) => {
-  btn.style.display = "none";
-
+const createForm = (container) => {
   const form = document.createElement("form");
   const taskLabel = document.createElement("label");
   const dueDateLabel = document.createElement("label");
@@ -75,22 +74,18 @@ const renderForm = (container, btn) => {
 
   confirmBtn.textContent = "Confirm";
   cancelBtn.textContent = "Cancel";
+  cancelBtn.type = "button";
 
   form.append(inputDiv, confirmBtn, cancelBtn);
   container.appendChild(form);
 
-  const closeForm = () => {
-    form.remove();
-    btn.style.display = "";
-  };
-
   cancelBtn.addEventListener("click", function () {
-    closeForm();
+    form.remove();
+    container.close();
   });
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-
     const task = taskInput.value.trim();
     if (!task) {
       alert("Task cannot be empty!");
@@ -110,10 +105,11 @@ const renderForm = (container, btn) => {
     }
 
     todoController.addTodo(task.trim(), dueDate);
-
     renderTodoList("default");
-    closeForm();
+    container.close();
   });
+
+  return form;
 };
 
 const renderTodo = (container, todo) => {
