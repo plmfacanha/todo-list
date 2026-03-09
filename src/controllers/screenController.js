@@ -25,20 +25,19 @@ const renderTodoList = (folder) => {
 
   archive[folder].forEach((todo) => {
     const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
-    const dueDate = deadline.textContent;
 
-    let currentStatus = todo.getChecklist();
-    if (currentStatus) {
+    let status = todo.getChecklist();
+    if (status) {
       completedDiv.appendChild(label);
       deadline.textContent = "Done!";
     } else {
       inboxDiv.appendChild(label);
     }
-    checkTodo(label, icon, currentStatus);
+    checkTodo(label, icon, status);
 
     input.addEventListener("change", () => {
-      let updatedStatus = input.checked;
-      if (updatedStatus) todo.setChecklist(!status);
+      let currentStatus = input.checked;
+      if (currentStatus) todo.setChecklist(!status);
       todoController.updateStorage(todo);
       renderTodoList("default");
     });
