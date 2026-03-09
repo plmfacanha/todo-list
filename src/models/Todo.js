@@ -42,4 +42,23 @@ export default class Todo {
   toggleChecklist() {
     this.#checklist = !this.#checklist;
   }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      title: this.#title,
+      checklist: this.#checklist,
+      dueDate: this.#dueDate?.toISOString?.() ?? this.#dueDate,
+    };
+  }
+
+  static fromJSON(data) {
+    const todo = new Todo(
+      data.title,
+      data.checklist ?? false,
+      data.dueDate ? new Date(data.dueDate) : null,
+    );
+    todo.#id = data.id;
+    return todo;
+  }
 }

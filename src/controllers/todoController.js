@@ -3,17 +3,29 @@ import Project from "../models/Project.js";
 import { parse } from "date-fns";
 
 const loadStorage = () => {
-  console.log(loadStorage);
+  const archive = {
+    default: [],
+    project: [],
+  };
+
+  for (let i = 0; i < localStorage.length; ++i) {
+    const key = localStorage.key(i);
+    const raw = JSON.parse(localStorage.getItem(key));
+
+    const todo = Todo.fromJSON(raw);
+    archive.default.push(todo);
+  }
+
+  return archive;
 };
 
-const updateStorage = () => {
+const updateStorage = (item) => {
   if (item instanceof Todo) {
-    const id = item.getId();
-    item.id = id;
-    item.title = item.getTitle();
-    item.dueDate = item.getDueDate();
+    localStorage.setItem(`item-${item.id}`, JSON.stringify(item));
+  }
 
-    localStorage.setItem(`item-${id}`, JSON.stringify(item));
+  if (item instanceof Project) {
+    localStorage.setItem(`project-${item.getId()}`, JSON.stringify(item));
   }
 };
 
@@ -26,7 +38,7 @@ const addTodo = (task, dueDate) => {
 
   if (!dueDate) return null;
 
-  const todo = new Todo(task.trim(), checklist, dueDate);
+  const todo = new Todo(task.trim(), false, dueDate);
   updateStorage(todo);
   return todo;
 };
@@ -65,19 +77,18 @@ const convertDateFormat = (dueDate) => {
   return newDate;
 };
 
-const fetchArchive = () => {
-  return {
-    default: [...archive.default],
-    projects: [...archive.projects],
-  };
-};
+// const fetchArchive = () => {
+//   return {
+//     default: [...archive.default],
+//     projects: [...archive.projects],
+//   };
+// };
 
 export default {
   addTodo,
   addProject,
   deleteTodo,
   convertDateFormat,
-  fetchArchive,
   loadStorage,
   updateStorage,
 };

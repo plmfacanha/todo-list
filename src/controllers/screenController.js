@@ -107,12 +107,11 @@ const renderForm = (container, btn) => {
       return;
     }
 
-    const todoDueDate = todoController.convertDateFormat(dueDate);
-    const todo = todoController.addTodo(task, false, todoDueDate);
+    todoController.addTodo(task.trim(), dueDate);
 
-    if (todo) {
-      renderTodoList("default");
-    }
+    // if (todo) {
+    //   renderTodoList("default");
+    // }
 
     closeForm();
   });
