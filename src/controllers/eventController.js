@@ -14,9 +14,14 @@ const bindFormSubmit = (form, callback) => {
   form.addEventListener("submit", callback);
 };
 
+const bindDeleteButton = (button, callback) => {
+  button.addEventListener("click", callback);
+};
+
 export default {
   bindAddTodoButton,
   bindTodoToggle,
   bindCancelButton,
   bindFormSubmit,
+  bindDeleteButton,
 };

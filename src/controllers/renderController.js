@@ -59,14 +59,14 @@ const renderTodo = (todo) => {
   input.style.opacity = 0;
 
   titleSpan.textContent = todo.getTitle();
-  displayDaysRemaining(todo, deadline);
+  renderDueDate(todo, deadline);
 
   label.append(icon, titleSpan, input, deadline);
 
   return { label, icon, input, deadline };
 };
 
-const applyTodoStatus = (label, icon, status) => {
+const renderTodoStatus = (label, icon, status) => {
   if (status) {
     label.classList.add("completed-task");
     icon.classList.add("fa-solid", "fa-circle-check", "completed-icon");
@@ -79,7 +79,7 @@ const applyTodoStatus = (label, icon, status) => {
   icon.classList.add("fa-regular", "fa-circle");
 };
 
-const displayDaysRemaining = (todo, container) => {
+const renderDueDate = (todo, container) => {
   const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
 
   if (daysRemaining == 0) {
@@ -94,8 +94,8 @@ const displayDaysRemaining = (todo, container) => {
 };
 
 export default {
-  applyTodoStatus,
-  displayDaysRemaining,
+  renderTodoStatus,
+  renderDueDate,
   renderForm,
   renderTodo,
 };

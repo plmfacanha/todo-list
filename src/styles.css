@@ -172,7 +172,7 @@ main > div {
   flex: 1;
 }
 
-sidebar {
+aside {
   padding: 20px;
   margin-bottom: var(--spacing);
   border-radius: var(--spacing);

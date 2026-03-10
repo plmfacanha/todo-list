@@ -48,24 +48,7 @@ const addTodo = (task, dueDate) => {
 };
 
 const deleteTodo = (todo, projectName) => {
-  if (!todo || !todo.trim()) return;
-
-  if (!projectName || !projectName.trim()) {
-    archive.default = archive.default.filter(
-      (t) => t.getTitle() !== todo.trim(),
-    );
-    return;
-  }
-
-  const project = archive.projects.find(
-    (p) => p.getName() === projectName.trim(),
-  );
-  if (!project) return;
-
-  const updatedTodos = project
-    .getTodos()
-    .filter((t) => t.getTitle() !== todo.trim());
-  project.setTodos(updatedTodos);
+  // TODO: implement code for todo's and projects'
 };
 
 const convertDateFormat = (dueDate) => {
