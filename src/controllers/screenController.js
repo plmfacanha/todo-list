@@ -52,6 +52,14 @@ const displayTodoList = (folder) => {
       todoController.updateStorage(todo);
       displayTodoList("default");
     });
+
+    eventController.bindDeleteButton(deleteBtn, (e) => {
+      const clickedButton = e.target;
+      const todoDiv = clickedButton.closest(".inner-div");
+
+      todoController.deleteTodo(todo);
+      todoDiv.remove();
+    });
   });
 };
 

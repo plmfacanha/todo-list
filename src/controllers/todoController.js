@@ -49,8 +49,12 @@ const addTodo = (task, dueDate) => {
   updateStorage(todo);
 };
 
-const deleteTodo = (todo, projectName) => {
-  // TODO: implement code for todo's and projects'
+const deleteTodo = (item) => {
+  let id;
+  if (item instanceof Todo) {
+    id = item.getId();
+    localStorage.removeItem(`item-${id}`);
+  }
 };
 
 const convertDateFormat = (dueDate) => {
