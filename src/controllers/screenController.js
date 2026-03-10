@@ -26,14 +26,18 @@ const displayTodoList = (folder) => {
   completedDiv.textContent = "";
 
   archive[folder].forEach((todo) => {
-    const { label, icon, input, deadline } = renderController.renderTodo(todo);
+    const innerDiv = renderController.renderDiv("div", "inner-div");
+    const { label, icon, input, deadline, deleteBtn } =
+      renderController.renderTodo(todo);
     const status = todo.getChecklist();
 
+    innerDiv.append(label, deleteBtn);
+
     if (status) {
-      completedDiv.appendChild(label);
+      completedDiv.appendChild(innerDiv);
       deadline.textContent = "Done!";
     } else {
-      inboxDiv.appendChild(label);
+      inboxDiv.appendChild(innerDiv);
     }
 
     renderController.renderTodoStatus(label, icon, status);

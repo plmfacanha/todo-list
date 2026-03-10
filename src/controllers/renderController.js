@@ -1,5 +1,12 @@
 import { differenceInCalendarDays } from "date-fns";
 
+const renderDiv = (container, className) => {
+  const div = document.createElement(container);
+  div.classList.add(className);
+
+  return div;
+};
+
 const renderForm = (dialog) => {
   dialog.textContent = "";
 
@@ -45,6 +52,7 @@ const renderTodo = (todo) => {
   const icon = document.createElement("i");
   const titleSpan = document.createElement("span");
   const deadline = document.createElement("span");
+  const deleteBtn = document.createElement("button");
 
   const id = `task-${todo.getTitle()}`;
 
@@ -59,11 +67,16 @@ const renderTodo = (todo) => {
   input.style.opacity = 0;
 
   titleSpan.textContent = todo.getTitle();
+
+  deleteBtn.textContent = "Delete";
+  deleteBtn.type = "button";
+  deleteBtn.classList.add = "delete-btn";
+
   renderDueDate(todo, deadline);
 
   label.append(icon, titleSpan, input, deadline);
 
-  return { label, icon, input, deadline };
+  return { label, icon, input, deadline, deleteBtn };
 };
 
 const renderTodoStatus = (label, icon, status) => {
@@ -94,6 +107,7 @@ const renderDueDate = (todo, container) => {
 };
 
 export default {
+  renderDiv,
   renderTodoStatus,
   renderDueDate,
   renderForm,
