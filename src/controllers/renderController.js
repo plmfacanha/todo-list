@@ -26,6 +26,7 @@ const renderForm = (dialog) => {
 
   taskLabel.htmlFor = "task";
   taskLabel.textContent = "Task: ";
+  taskLabel.classList.add("task-label");
   dueDateLabel.htmlFor = "due-date";
   dueDateLabel.textContent = "Due Date: ";
 

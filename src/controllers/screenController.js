@@ -6,11 +6,17 @@ import { format } from "date-fns";
 const init = () => {
   const dialog = document.querySelector("dialog");
   const addTodo = document.querySelector(".custom-btn.add-todo");
+  const addProject = document.querySelector(".custom-btn.add-project");
 
   displayTodoList("default");
 
   eventController.bindAddTodoButton(addTodo, () => {
     displayForm(dialog);
+    dialog.showModal();
+  });
+
+  eventController.bindAddProjectButton(addProject, () => {
+    displayProjectForm(dialog);
     dialog.showModal();
   });
 };
@@ -54,11 +60,8 @@ const displayTodoList = (folder) => {
     });
 
     eventController.bindDeleteButton(deleteBtn, (e) => {
-      const clickedButton = e.target;
-      const todoDiv = clickedButton.closest(".inner-div");
-
       todoController.deleteTodo(todo);
-      todoDiv.remove();
+      displayTodoList("default");
     });
   });
 };
@@ -95,6 +98,19 @@ const displayForm = (dialog) => {
 
     todoController.addTodo(task, dueDate);
     displayTodoList("default");
+    form.remove();
+    dialog.close();
+  });
+};
+
+const displayProjectForm = (dialog) => {
+  const { form, cancelBtn } = renderController.renderForm(dialog);
+
+  const inputDiv = form.querySelector(".input-div");
+  const projectLabel = inputDiv.querySelector(".task-label");
+  projectLabel.textContent = "Project: ";
+
+  eventController.bindCancelButton(cancelBtn, () => {
     form.remove();
     dialog.close();
   });

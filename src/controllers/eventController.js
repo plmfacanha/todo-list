@@ -2,6 +2,10 @@ const bindAddTodoButton = (button, callback) => {
   button.addEventListener("click", callback);
 };
 
+const bindAddProjectButton = (button, callback) => {
+  button.addEventListener("click", callback);
+};
+
 const bindTodoToggle = (input, callback) => {
   input.addEventListener("change", callback);
 };
@@ -20,6 +24,7 @@ const bindDeleteButton = (button, callback) => {
 
 export default {
   bindAddTodoButton,
+  bindAddProjectButton,
   bindTodoToggle,
   bindCancelButton,
   bindFormSubmit,
