@@ -24,12 +24,14 @@ const loadStorage = () => {
 };
 
 const updateStorage = (item) => {
+  let id;
   if (item instanceof Todo) {
-    const id = item.getId();
+    id = item.getId();
     localStorage.setItem(`item-${id}`, JSON.stringify(item));
   }
 
   if (item instanceof Project) {
+    id = item.getId();
     localStorage.setItem(`project-${item.getId()}`, JSON.stringify(item));
   }
 };
