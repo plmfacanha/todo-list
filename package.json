@@ -1,5 +1,5 @@
 {
-  "name": "restaurant-page",
+  "name": "todo-app",
   "version": "1.0.0",
   "description": "A restaurant page assignment created using webpack and JavaScript only",
   "main": "index.js",
