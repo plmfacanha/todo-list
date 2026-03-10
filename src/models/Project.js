@@ -38,8 +38,9 @@ export default class Project {
   }
 
   static fromJSON(data) {
-    const project = new Project(data.projectName, data.todos);
+    const project = new Project(data.projectName);
     project.#id = data.id;
+    project.#todos = (data.todos || []).map((todo) => Todo.fromJSON(todo));
     return project;
   }
 }
