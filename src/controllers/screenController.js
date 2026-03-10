@@ -1,94 +1,29 @@
 import todoController from "../controllers/todoController.js";
-import { format, differenceInCalendarDays } from "date-fns";
+import eventController from "../controllers/eventController.js";
+import todoView from "../views/todoView.js";
+import { format } from "date-fns";
 
 const init = () => {
   const dialog = document.querySelector("dialog");
   const addTodo = document.querySelector(".custom-btn.add-todo");
 
-  addTodo.addEventListener("click", () => {
-    createForm(dialog);
+  eventController.bindAddTodoButton(addTodo, () => {
+    displayForm(dialog);
     dialog.showModal();
   });
 
   renderTodoList("default");
 };
 
-const renderTodoList = (folder) => {
-  const archive = todoController.loadStorage();
-  const inboxDiv = document.querySelector(".inbox-div");
-  const completedDiv = document.querySelector(".completed-div");
+const displayForm = (dialog) => {
+  createForm(dialog);
 
-  if (!folder || folder.trim() === "") return;
-
-  inboxDiv.textContent = "";
-  completedDiv.textContent = "";
-
-  archive[folder].forEach((todo) => {
-    const { label, icon, input, deadline } = renderTodo(inboxDiv, todo);
-
-    let status = todo.getChecklist();
-    if (status) {
-      completedDiv.appendChild(label);
-      deadline.textContent = "Done!";
-    } else {
-      inboxDiv.appendChild(label);
-    }
-
-    checkTodo(label, icon, status);
-
-    input.addEventListener("change", () => {
-      let currentStatus = input.checked;
-      if (currentStatus) todo.setChecklist(!status);
-      todoController.updateStorage(todo);
-      renderTodoList("default");
-    });
-  });
-};
-
-const createForm = (dialog) => {
-  dialog.textContent = "";
-
-  const form = document.createElement("form");
-  const taskLabel = document.createElement("label");
-  const dueDateLabel = document.createElement("label");
-  const taskInput = document.createElement("input");
-  const dueDateInput = document.createElement("input");
-
-  const inputDiv = document.createElement("div");
-
-  const confirmBtn = document.createElement("button");
-  const cancelBtn = document.createElement("button");
-
-  confirmBtn.type = "submit";
-  confirmBtn.classList.add("confirm-btn");
-  cancelBtn.classList.add("cancel-btn");
-
-  taskLabel.htmlFor = "task";
-  taskLabel.textContent = "Task: ";
-  dueDateLabel.htmlFor = "due-date";
-  dueDateLabel.textContent = "Due Date: ";
-
-  taskInput.id = "task";
-  taskInput.type = "text";
-  dueDateInput.id = "due-date";
-  dueDateInput.type = "date";
-
-  inputDiv.append(taskLabel, taskInput, dueDateLabel, dueDateInput);
-  inputDiv.classList.add("input-div");
-
-  confirmBtn.textContent = "Confirm";
-  cancelBtn.textContent = "Cancel";
-  cancelBtn.type = "button";
-
-  form.append(inputDiv, confirmBtn, cancelBtn);
-  dialog.appendChild(form);
-
-  cancelBtn.addEventListener("click", function () {
+  eventController.bindCancelButton(cancelBtn, function () {
     form.remove();
     dialog.close();
   });
 
-  form.addEventListener("submit", (e) => {
+  eventController.bindFormSubmit(form, (e) => {
     e.preventDefault();
     const task = taskInput.value.trim();
     if (!task) {
@@ -115,58 +50,4 @@ const createForm = (dialog) => {
   });
 };
 
-const renderTodo = (container, todo) => {
-  const label = document.createElement("label");
-  const input = document.createElement("input");
-  const icon = document.createElement("i");
-  const titleSpan = document.createElement("span");
-  const deadline = document.createElement("span");
-
-  const id = `task-${todo.getTitle()}`;
-
-  icon.classList.add("fa-regular", "fa-circle");
-
-  label.htmlFor = id;
-  label.classList.add("list-label");
-
-  input.id = id;
-  input.type = "checkbox";
-  input.style.position = "absolute";
-  input.style.opacity = 0;
-
-  titleSpan.textContent = todo.getTitle();
-
-  displayDaysRemaining(todo, deadline);
-
-  label.append(icon, titleSpan, input, deadline);
-  container.appendChild(label);
-
-  return { label, icon, input, deadline };
-};
-
-const checkTodo = (label, icon, status) => {
-  if (status) {
-    label.classList.add("completed-task");
-    icon.classList.add("fa-solid", "fa-circle-check", "completed-icon");
-    icon.classList.remove("fa-regular", "fa-circle");
-    return;
-  }
-
-  label.classList.remove("completed-task");
-  icon.classList.remove("fa-solid", "fa-circle-check", "completed-icon");
-  icon.classList.add("fa-regular", "fa-circle");
-};
-
-const displayDaysRemaining = (todo, container) => {
-  const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
-  if (daysRemaining == 0) {
-    container.textContent = `This task is due today!`;
-  } else if (daysRemaining == -1) {
-    container.textContent = `This task is due tomorrow!`;
-  } else {
-    container.textContent = `This task is due in: ${daysRemaining + 1} days`;
-  }
-
-  container.classList.add("deadline-span");
-};
 export default { init };

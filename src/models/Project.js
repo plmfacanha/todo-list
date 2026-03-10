@@ -1,3 +1,5 @@
+import Todo from "./Todo.js";
+
 export default class Project {
   #id;
   #projectName;
