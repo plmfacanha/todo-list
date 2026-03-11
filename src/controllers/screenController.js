@@ -106,6 +106,7 @@ const displayForm = (dialog) => {
 const displayProjectForm = (dialog) => {
   const { form, cancelBtn } = renderController.renderForm(dialog);
 
+  const inboxHeader = document.querySelector(".inbox-header");
   const inputDiv = form.querySelector(".input-div");
   const projectLabel = inputDiv.querySelector(".task-label");
   projectLabel.textContent = "Project: ";
@@ -113,6 +114,10 @@ const displayProjectForm = (dialog) => {
   eventController.bindCancelButton(cancelBtn, () => {
     form.remove();
     dialog.close();
+  });
+
+  eventController.bindFormSubmit(form, (e) => {
+    e.preventDefault();
   });
 };
 
