@@ -152,6 +152,8 @@ const displayProjects = () => {
   });
 };
 
+const displayProjectTodos = () => {};
+
 const toggleFolder = (div, icon) => {
   const isOpen = div.dataset.open === "true";
   if (isOpen) {
