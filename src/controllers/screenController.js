@@ -136,29 +136,34 @@ const displayProjectForm = (dialog) => {
 const displayProjects = () => {
   const archive = todoController.loadStorage();
   const projects = document.querySelector(".projects");
+
   projects.textContent = "";
+
   archive.projects.forEach((project) => {
-    const { div, li } = renderController.renderProjectDiv();
+    const { div, li, icon } = renderController.renderProjectDiv();
     li.textContent = project.getProjectName();
+    div.dataset.open = "false";
     projects.appendChild(div);
 
-    eventController.bindProjectToggle(div, (e) => {
-      console.log(e.target);
-      // toggleFolder(isClicked, icon);
+    eventController.bindProjectToggle(div, () => {
+      toggleFolder(div, icon);
       return;
     });
   });
 };
 
-const toggleFolder = (clicked, icon) => {
-  if (clicked) {
-    icon.classList.remove("fa-folder");
-    icon.classList.add("fa-folder-open");
+const toggleFolder = (div, icon) => {
+  const isOpen = div.dataset.open === "true";
+  if (isOpen) {
+    icon.classList.add("fa-folder");
+    icon.classList.remove("fa-folder-open");
+    div.dataset.open = "false";
     return;
   }
 
-  icon.classList.add("fa-folder");
-  icon.classList.remove("fa-folder-open");
+  icon.classList.remove("fa-folder");
+  icon.classList.add("fa-folder-open");
+  div.dataset.open = "true";
 };
 
 export default { init };
