@@ -7,6 +7,19 @@ const renderDiv = (container, className) => {
   return div;
 };
 
+const renderProjectDiv = () => {
+  const div = document.createElement("div");
+  const icon = document.createElement("i");
+  const li = document.createElement("li");
+
+  div.classList.add("custom-btn");
+  icon.classList.add("fa-solid", "fa-folder");
+
+  div.append(icon, li);
+
+  return { div, li, icon };
+};
+
 const renderForm = (dialog) => {
   dialog.textContent = "";
 
@@ -29,6 +42,7 @@ const renderForm = (dialog) => {
   taskLabel.classList.add("task-label");
   dueDateLabel.htmlFor = "due-date";
   dueDateLabel.textContent = "Due Date: ";
+  dueDateLabel.classList.add("date-label");
 
   taskInput.id = "task";
   taskInput.type = "text";
@@ -45,6 +59,17 @@ const renderForm = (dialog) => {
   dialog.appendChild(form);
 
   return { form, taskInput, dueDateInput, cancelBtn };
+};
+
+const updateForm = (form) => {
+  const inputDiv = form.querySelector(".input-div");
+  const projectLabel = inputDiv.querySelector(".task-label");
+  const dueDateLabel = inputDiv.querySelector(".date-label");
+  const dueDateInput = inputDiv.querySelector("#due-date");
+
+  projectLabel.textContent = "Project: ";
+  dueDateLabel.remove();
+  dueDateInput.remove();
 };
 
 const renderTodo = (todo) => {
@@ -109,8 +134,10 @@ const renderDueDate = (todo, container) => {
 
 export default {
   renderDiv,
+  renderProjectDiv,
   renderTodoStatus,
   renderDueDate,
   renderForm,
+  updateForm,
   renderTodo,
 };

@@ -22,6 +22,10 @@ const bindDeleteButton = (button, callback) => {
   button.addEventListener("click", callback);
 };
 
+const bindProjectToggle = (div, callback) => {
+  div.addEventListener("click", callback);
+};
+
 export default {
   bindAddTodoButton,
   bindAddProjectButton,
@@ -29,4 +33,5 @@ export default {
   bindCancelButton,
   bindFormSubmit,
   bindDeleteButton,
+  bindProjectToggle,
 };

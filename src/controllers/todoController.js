@@ -36,8 +36,22 @@ const updateStorage = (item) => {
   }
 };
 
-const addProject = (project) => {
-  updateStorage(project);
+const addProject = (projectName) => {
+  if (!projectName || !projectName.trim()) return null;
+
+  const normalizedProjectName = projectName.trim();
+  const projects = loadStorage().projects;
+  const projectExists = projects.some(
+    (project) => project.getProjectName() === normalizedProjectName,
+  );
+
+  if (projectExists) {
+    return { error: "Project already exists! Please try another name." };
+  }
+
+  const newProject = new Project(normalizedProjectName);
+  updateStorage(newProject);
+  return { ok: "Project added successfully!" };
 };
 
 const addTodo = (task, dueDate) => {
@@ -45,8 +59,8 @@ const addTodo = (task, dueDate) => {
 
   if (!dueDate) return null;
 
-  const todo = new Todo(task.trim(), false, dueDate);
-  updateStorage(todo);
+  const newTodo = new Todo(task.trim(), false, dueDate);
+  updateStorage(newTodo);
 };
 
 const deleteTodo = (item) => {

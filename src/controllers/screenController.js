@@ -8,7 +8,8 @@ const init = () => {
   const addTodo = document.querySelector(".custom-btn.add-todo");
   const addProject = document.querySelector(".custom-btn.add-project");
 
-  displayTodoList("default");
+  displayInbox();
+  displayProjects();
 
   eventController.bindAddTodoButton(addTodo, () => {
     displayForm(dialog);
@@ -21,17 +22,15 @@ const init = () => {
   });
 };
 
-const displayTodoList = (folder) => {
+const displayInbox = () => {
   const archive = todoController.loadStorage();
   const inboxDiv = document.querySelector(".inbox-div");
   const completedDiv = document.querySelector(".completed-div");
 
-  if (!folder || folder.trim() === "") return;
-
   inboxDiv.textContent = "";
   completedDiv.textContent = "";
 
-  archive[folder].forEach((todo) => {
+  archive.default.forEach((todo) => {
     const innerDiv = renderController.renderDiv("div", "inner-div");
     const { label, icon, input, deadline, deleteBtn } =
       renderController.renderTodo(todo);
@@ -56,12 +55,13 @@ const displayTodoList = (folder) => {
       }
 
       todoController.updateStorage(todo);
-      displayTodoList("default");
+
+      displayInbox();
     });
 
     eventController.bindDeleteButton(deleteBtn, (e) => {
       todoController.deleteTodo(todo);
-      displayTodoList("default");
+      displayInbox();
     });
   });
 };
@@ -97,19 +97,16 @@ const displayForm = (dialog) => {
     }
 
     todoController.addTodo(task, dueDate);
-    displayTodoList("default");
     form.remove();
     dialog.close();
+    displayInbox();
   });
 };
 
 const displayProjectForm = (dialog) => {
   const { form, cancelBtn } = renderController.renderForm(dialog);
 
-  const inboxHeader = document.querySelector(".inbox-header");
-  const inputDiv = form.querySelector(".input-div");
-  const projectLabel = inputDiv.querySelector(".task-label");
-  projectLabel.textContent = "Project: ";
+  renderController.updateForm(form);
 
   eventController.bindCancelButton(cancelBtn, () => {
     form.remove();
@@ -118,7 +115,50 @@ const displayProjectForm = (dialog) => {
 
   eventController.bindFormSubmit(form, (e) => {
     e.preventDefault();
+    const projectName = document.getElementById("task").value;
+
+    const message = todoController.addProject(projectName);
+
+    if (message?.error) {
+      alert(message.error);
+      return;
+    }
+
+    if (message?.ok) {
+      alert(message.ok);
+      displayProjects();
+      form.remove();
+      dialog.close();
+    }
   });
+};
+
+const displayProjects = () => {
+  const archive = todoController.loadStorage();
+  const projects = document.querySelector(".projects");
+  projects.textContent = "";
+  archive.projects.forEach((project) => {
+    const { div, li } = renderController.renderProjectDiv();
+    li.textContent = project.getProjectName();
+    projects.appendChild(div);
+
+    eventController.bindProjectToggle(div, (e) => {
+      console.log(e.target);
+      // toggleFolder(isClicked, icon);
+      return;
+    });
+  });
+};
+
+const toggleFolder = (clicked, icon) => {
+  if (clicked) {
+    icon.classList.remove("fa-folder");
+    icon.classList.add("fa-folder-open");
+    return;
+  }
+
+  icon.classList.add("fa-folder");
+  icon.classList.remove("fa-folder-open");
 };
 
 export default { init };
