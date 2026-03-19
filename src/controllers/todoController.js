@@ -4,7 +4,7 @@ import { parse } from "date-fns";
 
 const loadStorage = () => {
   const archive = {
-    default: [],
+    inbox: [],
     projects: [],
   };
 
@@ -14,7 +14,7 @@ const loadStorage = () => {
 
     if (key.startsWith("item")) {
       const todo = Todo.fromJSON(raw);
-      archive.default.push(todo);
+      archive.inbox.push(todo);
     } else if (key.startsWith("project")) {
       const project = Project.fromJSON(raw);
       archive.projects.push(project);

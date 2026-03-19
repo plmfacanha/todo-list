@@ -72,6 +72,15 @@ const updateForm = (form) => {
   dueDateInput.remove();
 };
 
+const updateInbox = (div) => {
+  const inboxHeader = document.querySelector(".inbox-header");
+  if (!div) {
+    inboxHeader.textContent = "Inbox";
+    return;
+  }
+  inboxHeader.textContent = div.dataset.name;
+};
+
 const renderTodo = (todo) => {
   const label = document.createElement("label");
   const input = document.createElement("input");
@@ -139,5 +148,6 @@ export default {
   renderDueDate,
   renderForm,
   updateForm,
+  updateInbox,
   renderTodo,
 };

@@ -30,7 +30,7 @@ const displayInbox = () => {
   inboxDiv.textContent = "";
   completedDiv.textContent = "";
 
-  archive.default.forEach((todo) => {
+  archive.inbox.forEach((todo) => {
     const innerDiv = renderController.renderDiv("div", "inner-div");
     const { label, icon, input, deadline, deleteBtn } =
       renderController.renderTodo(todo);
@@ -142,29 +142,30 @@ const displayProjects = () => {
   archive.projects.forEach((project) => {
     const { div, li, icon } = renderController.renderProjectDiv();
     li.textContent = project.getProjectName();
+    div.dataset.name = li.textContent;
     div.dataset.open = "false";
     projects.appendChild(div);
 
     eventController.bindProjectToggle(div, () => {
-      toggleFolder(div, icon);
+      toggleProjectFolder(div, icon);
       return;
     });
   });
 };
 
-const displayProjectTodos = () => {};
-
-const toggleFolder = (div, icon) => {
+const toggleProjectFolder = (div, icon) => {
   const isOpen = div.dataset.open === "true";
   if (isOpen) {
     icon.classList.add("fa-folder");
     icon.classList.remove("fa-folder-open");
     div.dataset.open = "false";
+    renderController.updateInbox();
     return;
   }
 
   icon.classList.remove("fa-folder");
   icon.classList.add("fa-folder-open");
+  renderController.updateInbox(div);
   div.dataset.open = "true";
 };
 
