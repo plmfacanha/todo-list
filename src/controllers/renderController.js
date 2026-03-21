@@ -73,6 +73,7 @@ const updateForm = (form) => {
 };
 
 const updateInbox = (div) => {
+  const inboxDiv = document.querySelector(".inbox-div");
   const inboxHeader = document.querySelector(".inbox-header");
   if (!div) {
     inboxHeader.textContent = "Inbox";
