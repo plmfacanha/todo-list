@@ -113,8 +113,8 @@ const displayForm = (dialog) => {
   });
 
   eventController.bindFormSubmit(form, (e) => {
-    // const h2 = document.querySelector(".inbox-header");
-    // const projectName = h2.textContent;
+    const h2 = document.querySelector(".inbox-header");
+    const projectName = h2.textContent;
     e.preventDefault();
 
     const task = taskInput.value.trim();
@@ -135,7 +135,12 @@ const displayForm = (dialog) => {
       return;
     }
 
-    todoController.addTodo(task, dueDate);
+    if (projectName === "Inbox") {
+      todoController.addTodo(task, dueDate);
+    } else {
+      todoController.addTodo(task, projectName, dueDate);
+    }
+
     form.remove();
     dialog.close();
     displayTodos();

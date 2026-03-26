@@ -80,8 +80,6 @@ const updateInbox = (div) => {
     const projectName = div.dataset.name;
     inboxHeader.textContent = div.dataset.name;
     inboxDiv.style.display = "none";
-    const project = todoController.fetchProject(projectName);
-    console.log(project);
     return;
   }
   inboxHeader.textContent = "Inbox";

@@ -54,13 +54,20 @@ const addProject = (projectName) => {
   return { ok: "Project added successfully!" };
 };
 
-const addTodo = (task, dueDate) => {
+const addTodo = (task, projectName, dueDate) => {
   if (!task || !task.trim()) return null;
 
   if (!dueDate) return null;
 
   const newTodo = new Todo(task.trim(), false, dueDate);
-  updateStorage(newTodo);
+
+  if (projectName) {
+    const project = fetchProject(projectName);
+    project.addTodo(newTodo);
+    updateStorage(project);
+  } else {
+    updateStorage(newTodo);
+  }
 };
 
 const deleteTodo = (item) => {
