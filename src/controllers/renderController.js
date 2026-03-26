@@ -1,4 +1,5 @@
 import { differenceInCalendarDays } from "date-fns";
+import todoController from "./todoController.js";
 
 const renderDiv = (container, className) => {
   const div = document.createElement(container);
@@ -75,11 +76,16 @@ const updateForm = (form) => {
 const updateInbox = (div) => {
   const inboxDiv = document.querySelector(".inbox-div");
   const inboxHeader = document.querySelector(".inbox-header");
-  if (!div) {
-    inboxHeader.textContent = "Inbox";
+  if (div) {
+    const projectName = div.dataset.name;
+    inboxHeader.textContent = div.dataset.name;
+    inboxDiv.style.display = "none";
+    const project = todoController.fetchProject(projectName);
+    console.log(project);
     return;
   }
-  inboxHeader.textContent = div.dataset.name;
+  inboxHeader.textContent = "Inbox";
+  inboxDiv.style.display = "";
 };
 
 const renderTodo = (todo) => {

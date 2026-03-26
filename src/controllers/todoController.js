@@ -84,11 +84,20 @@ const convertDateFormat = (dueDate) => {
   return newDate;
 };
 
+const fetchProject = (projectName) => {
+  const archive = loadStorage();
+  const project = archive.projects.find(
+    (p) => p.getProjectName() === projectName,
+  );
+  return project;
+};
+
 export default {
   addTodo,
   addProject,
-  deleteTodo,
   convertDateFormat,
+  deleteTodo,
+  fetchProject,
   loadStorage,
   updateStorage,
 };

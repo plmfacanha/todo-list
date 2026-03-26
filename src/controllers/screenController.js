@@ -8,7 +8,7 @@ const init = () => {
   const addTodo = document.querySelector(".custom-btn.add-todo");
   const addProject = document.querySelector(".custom-btn.add-project");
 
-  displayInbox();
+  displayTodos();
   displayProjects();
 
   eventController.bindAddTodoButton(addTodo, () => {
@@ -22,7 +22,7 @@ const init = () => {
   });
 };
 
-const displayInbox = () => {
+const displayTodos = (project) => {
   const archive = todoController.loadStorage();
   const inboxDiv = document.querySelector(".inbox-div");
   const completedDiv = document.querySelector(".completed-div");
@@ -30,40 +30,77 @@ const displayInbox = () => {
   inboxDiv.textContent = "";
   completedDiv.textContent = "";
 
-  archive.inbox.forEach((todo) => {
-    const innerDiv = renderController.renderDiv("div", "inner-div");
-    const { label, icon, input, deadline, deleteBtn } =
-      renderController.renderTodo(todo);
-    const status = todo.getChecklist();
+  if (!project) {
+    archive.inbox.forEach((todo) => {
+      const innerDiv = renderController.renderDiv("div", "inner-div");
+      const { label, icon, input, deadline, deleteBtn } =
+        renderController.renderTodo(todo);
+      const status = todo.getChecklist();
 
-    innerDiv.append(label, deleteBtn);
+      innerDiv.append(label, deleteBtn);
 
-    if (status) {
-      completedDiv.appendChild(innerDiv);
-      deadline.textContent = "Done!";
-    } else {
-      inboxDiv.appendChild(innerDiv);
-    }
-
-    renderController.renderTodoStatus(label, icon, status);
-
-    eventController.bindTodoToggle(input, () => {
-      const currentStatus = input.checked;
-
-      if (currentStatus) {
-        todo.setChecklist(!status);
+      if (status) {
+        completedDiv.appendChild(innerDiv);
+        deadline.textContent = "Done!";
+      } else {
+        inboxDiv.appendChild(innerDiv);
       }
 
-      todoController.updateStorage(todo);
+      renderController.renderTodoStatus(label, icon, status);
 
-      displayInbox();
-    });
+      eventController.bindTodoToggle(input, () => {
+        const currentStatus = input.checked;
 
-    eventController.bindDeleteButton(deleteBtn, (e) => {
-      todoController.deleteTodo(todo);
-      displayInbox();
+        if (currentStatus) {
+          todo.setChecklist(!status);
+        }
+
+        todoController.updateStorage(todo);
+
+        displayTodos();
+      });
+
+      eventController.bindDeleteButton(deleteBtn, (e) => {
+        todoController.deleteTodo(todo);
+        displayTodos();
+      });
     });
-  });
+  } else {
+    archive.projects[project].todos.forEach((todo) => {
+      const innerDiv = renderController.renderDiv("div", "inner-div");
+      const { label, icon, input, deadline, deleteBtn } =
+        renderController.renderTodo(todo);
+      const status = todo.getChecklist();
+
+      innerDiv.append(label, deleteBtn);
+
+      if (status) {
+        completedDiv.appendChild(innerDiv);
+        deadline.textContent = "Done!";
+      } else {
+        inboxDiv.appendChild(innerDiv);
+      }
+
+      renderController.renderTodoStatus(label, icon, status);
+
+      eventController.bindTodoToggle(input, () => {
+        const currentStatus = input.checked;
+
+        if (currentStatus) {
+          todo.setChecklist(!status);
+        }
+
+        todoController.updateStorage(todo);
+
+        displayTodos(project);
+      });
+
+      eventController.bindDeleteButton(deleteBtn, (e) => {
+        todoController.deleteTodo(todo);
+        displayTodos(project);
+      });
+    });
+  }
 };
 
 const displayForm = (dialog) => {
@@ -76,6 +113,8 @@ const displayForm = (dialog) => {
   });
 
   eventController.bindFormSubmit(form, (e) => {
+    // const h2 = document.querySelector(".inbox-header");
+    // const projectName = h2.textContent;
     e.preventDefault();
 
     const task = taskInput.value.trim();
@@ -99,7 +138,7 @@ const displayForm = (dialog) => {
     todoController.addTodo(task, dueDate);
     form.remove();
     dialog.close();
-    displayInbox();
+    displayTodos();
   });
 };
 
@@ -158,8 +197,8 @@ const toggleProjectFolder = (div, icon) => {
   if (isOpen) {
     icon.classList.add("fa-folder");
     icon.classList.remove("fa-folder-open");
-    div.dataset.open = "false";
     renderController.updateInbox();
+    div.dataset.open = "false";
     return;
   }
 
