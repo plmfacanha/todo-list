@@ -22,7 +22,7 @@ const init = () => {
   });
 };
 
-const displayTodos = (project) => {
+const displayTodos = (projectName) => {
   const archive = todoController.loadStorage();
   const inboxDiv = document.querySelector(".inbox-div");
   const completedDiv = document.querySelector(".completed-div");
@@ -30,7 +30,7 @@ const displayTodos = (project) => {
   inboxDiv.textContent = "";
   completedDiv.textContent = "";
 
-  if (!project) {
+  if (!projectName) {
     archive.inbox.forEach((todo) => {
       const innerDiv = renderController.renderDiv("div", "inner-div");
       const { label, icon, input, deadline, deleteBtn } =
@@ -66,10 +66,13 @@ const displayTodos = (project) => {
       });
     });
   } else {
-    archive.projects[project].todos.forEach((todo) => {
+    const projectTodos = todoController.fetchProjectTodos(projectName);
+
+    projectTodos.forEach((todo) => {
       const innerDiv = renderController.renderDiv("div", "inner-div");
       const { label, icon, input, deadline, deleteBtn } =
         renderController.renderTodo(todo);
+
       const status = todo.getChecklist();
 
       innerDiv.append(label, deleteBtn);
@@ -86,18 +89,21 @@ const displayTodos = (project) => {
       eventController.bindTodoToggle(input, () => {
         const currentStatus = input.checked;
 
+        console.log("Before the function: ", todo.getChecklist());
         if (currentStatus) {
           todo.setChecklist(!status);
+          const currentStatus = todo.getChecklist();
+          todoController.updateProjectTodo(projectName, todo, currentStatus);
         }
 
-        todoController.updateStorage(todo);
+        console.log("After the function: ", todo.getChecklist());
 
-        displayTodos(project);
+        displayTodos(projectName);
       });
 
       eventController.bindDeleteButton(deleteBtn, (e) => {
         todoController.deleteTodo(todo);
-        displayTodos(project);
+        displayTodos(projectName);
       });
     });
   }
@@ -145,9 +151,14 @@ const displayForm = (dialog) => {
       return;
     }
 
+    if (projectName !== "Inbox") {
+      displayTodos(projectName);
+    } else {
+      displayTodos();
+    }
+
     form.remove();
     dialog.close();
-    displayTodos();
   });
 };
 
@@ -203,11 +214,13 @@ const displayProjects = () => {
 
 const toggleProjectFolder = (div, icon) => {
   const isOpen = div.dataset.open === "true";
+  const projectName = div.dataset.name;
   if (isOpen) {
     icon.classList.add("fa-folder");
     icon.classList.remove("fa-folder-open");
     renderController.updateInbox();
     div.dataset.open = "false";
+    displayTodos();
     return;
   }
 
@@ -215,6 +228,7 @@ const toggleProjectFolder = (div, icon) => {
   icon.classList.add("fa-folder-open");
   renderController.updateInbox(div);
   div.dataset.open = "true";
+  displayTodos(projectName);
 };
 
-export default { init };
+export default { init, displayTodos };
