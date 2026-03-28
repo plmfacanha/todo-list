@@ -54,20 +54,30 @@ const addProject = (projectName) => {
   return { ok: "Project added successfully!" };
 };
 
-const addTodo = (task, projectName, dueDate) => {
-  if (!task || !task.trim()) return null;
+const addTodo = ({ task, dueDate, projectName } = {}) => {
+  if (!task || !task.trim()) {
+    return { error: "Task cannot be empty!" };
+  }
 
-  if (!dueDate) return null;
+  if (!dueDate) {
+    return { error: "Please pick a due date!" };
+  }
 
   const newTodo = new Todo(task.trim(), false, dueDate);
 
   if (projectName) {
     const project = fetchProject(projectName);
+    if (!project) {
+      return { error: "Project not found." };
+    }
+
     project.addTodo(newTodo);
     updateStorage(project);
   } else {
     updateStorage(newTodo);
   }
+
+  return { ok: "Todo added successfully!" };
 };
 
 const deleteTodo = (item) => {

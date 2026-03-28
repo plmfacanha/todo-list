@@ -135,12 +135,14 @@ const displayForm = (dialog) => {
       return;
     }
 
-    if (projectName === "Inbox") {
-      todoController.addTodo(task, dueDate);
-      // displayTodos()
-    } else {
-      todoController.addTodo(task, projectName, dueDate);
-      // displayTodos(projectName);
+    const message =
+      projectName === "Inbox"
+        ? todoController.addTodo({ task, dueDate })
+        : todoController.addTodo({ task, dueDate, projectName });
+
+    if (message?.error) {
+      alert(message.error);
+      return;
     }
 
     form.remove();
