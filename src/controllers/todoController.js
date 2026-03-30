@@ -80,24 +80,26 @@ const addTodo = ({ task, dueDate, projectName } = {}) => {
   return { ok: "Todo added successfully!" };
 };
 
-// TODO: Refactor this function checking for todos inside Inbox or inside Projects
+// TODO: Create this function that deletes todos inside a specific Project
 //// Create a new function deleteProjectTodo() so it makes everything easier
 //// Remember that source of truth should always be something like Id and not title or something else
 
 const deleteProjectTodo = (todo, projectName) => {
   const project = fetchProject(projectName);
-  const projectTodos = fetchProjectTodos(projectName);
+  if (!project) return null;
+  let projectTodos = fetchProjectTodos(projectName);
+  if (!projectTodos) return [];
 
   projectTodos = projectTodos.filter((t) => t.getId() !== todo.getId());
   project.setTodos(projectTodos);
 
-  updateStorage(projectTodos);
+  updateStorage(project);
 };
 
 const deleteTodo = (todo) => {
   let id;
-  if (item instanceof Todo) {
-    id = item.getId();
+  if (todo instanceof Todo) {
+    id = todo.getId();
     localStorage.removeItem(`item-${id}`);
   }
 };
@@ -148,7 +150,7 @@ export default {
   addProject,
   convertDateFormat,
   deleteTodo,
-  deleteProjectTodos,
+  deleteProjectTodo,
   fetchProject,
   fetchProjectTodos,
   updateProjectTodo,

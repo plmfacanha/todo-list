@@ -60,7 +60,7 @@ const displayTodos = (projectName) => {
         displayTodos();
       });
 
-      eventController.bindDeleteButton(deleteBtn, (e) => {
+      eventController.bindDeleteButton(deleteBtn, () => {
         todoController.deleteTodo(todo);
         displayTodos();
       });
@@ -101,8 +101,8 @@ const displayTodos = (projectName) => {
         displayTodos(projectName);
       });
 
-      eventController.bindDeleteButton(deleteBtn, (e) => {
-        todoController.deleteTodo(todo);
+      eventController.bindDeleteButton(deleteBtn, () => {
+        todoController.deleteProjectTodo(todo, projectName);
         displayTodos(projectName);
       });
     });
