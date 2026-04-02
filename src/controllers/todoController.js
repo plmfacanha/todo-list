@@ -32,7 +32,7 @@ const updateStorage = (item) => {
 
   if (item instanceof Project) {
     id = item.getId();
-    localStorage.setItem(`project-${item.getId()}`, JSON.stringify(item));
+    localStorage.setItem(`project-${id}`, JSON.stringify(item));
   }
 };
 
@@ -80,10 +80,6 @@ const addTodo = ({ task, dueDate, projectName } = {}) => {
   return { ok: "Todo added successfully!" };
 };
 
-// TODO: Create this function that deletes todos inside a specific Project
-//// Create a new function deleteProjectTodo() so it makes everything easier
-//// Remember that source of truth should always be something like Id and not title or something else
-
 const deleteProjectTodo = (todo, projectName) => {
   const project = fetchProject(projectName);
   if (!project) return null;
@@ -101,6 +97,18 @@ const deleteTodo = (todo) => {
   if (todo instanceof Todo) {
     id = todo.getId();
     localStorage.removeItem(`item-${id}`);
+  }
+};
+// TODO: Implement function that deletes a specific project based on its name
+//// Check if a project is an instance of Project
+//// Create a variable that stores its id
+//// Remove the correspondent project from the localStorage by its id
+
+const deleteProject = (project) => {
+  let id;
+  if (project instanceof Project) {
+    id = project.getId();
+    localStorage.removeItem(`project-${id}`);
   }
 };
 
@@ -150,6 +158,7 @@ export default {
   addProject,
   convertDateFormat,
   deleteTodo,
+  deleteProject,
   deleteProjectTodo,
   fetchProject,
   fetchProjectTodos,

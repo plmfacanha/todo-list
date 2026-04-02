@@ -199,15 +199,26 @@ const displayProjects = () => {
   projects.textContent = "";
 
   archive.projects.forEach((project) => {
+    const deleteBtn = document.createElement("button");
     const { div, li, icon } = renderController.renderProjectDiv();
+
     li.textContent = project.getProjectName();
     div.dataset.name = li.textContent;
     div.dataset.open = "false";
+
+    deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add("delete-btn");
+    div.appendChild(deleteBtn);
+
     projects.appendChild(div);
 
     eventController.bindProjectToggle(div, () => {
       toggleProjectFolder(div, icon);
       return;
+    });
+
+    eventController.bindDeleteButton(deleteBtn, () => {
+      todoController.deleteProject(project);
     });
   });
 };
