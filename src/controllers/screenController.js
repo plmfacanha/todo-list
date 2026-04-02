@@ -199,6 +199,7 @@ const displayProjects = () => {
   projects.textContent = "";
 
   archive.projects.forEach((project) => {
+    const projectDiv = document.createElement("div");
     const deleteBtn = document.createElement("button");
     const { div, li, icon } = renderController.renderProjectDiv();
 
@@ -208,17 +209,21 @@ const displayProjects = () => {
 
     deleteBtn.textContent = "Delete";
     deleteBtn.classList.add("delete-btn");
-    div.appendChild(deleteBtn);
 
-    projects.appendChild(div);
+    projectDiv.classList.add("inner-div");
+    projectDiv.style.backgroundColor = "white";
+    projectDiv.append(div, deleteBtn);
+
+    projects.appendChild(projectDiv);
 
     eventController.bindProjectToggle(div, () => {
       toggleProjectFolder(div, icon);
-      return;
+      // return;
     });
 
     eventController.bindDeleteButton(deleteBtn, () => {
       todoController.deleteProject(project);
+      displayProjects();
     });
   });
 };
