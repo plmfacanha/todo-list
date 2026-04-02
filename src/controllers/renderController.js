@@ -133,9 +133,9 @@ const renderDueDate = (todo, container) => {
   const daysRemaining = differenceInCalendarDays(todo.getDueDate(), new Date());
 
   if (daysRemaining == 0) {
-    container.textContent = "This task is due today!";
-  } else if (daysRemaining == -1) {
     container.textContent = "This task is due tomorrow!";
+  } else if (daysRemaining == -1) {
+    container.textContent = "This task is due in two days!";
   } else {
     container.textContent = `This task is due in: ${daysRemaining + 1} days`;
   }
