@@ -8,7 +8,27 @@ const renderDiv = (container, className) => {
   return div;
 };
 
-const renderProjectDiv = () => {
+const renderProjectDiv = (project) => {
+  const projectDiv = document.createElement("div");
+  const deleteBtn = document.createElement("button");
+  const { div, li, icon } = renderProject();
+
+  li.textContent = project.getProjectName();
+  div.dataset.name = li.textContent;
+  div.dataset.open = "false";
+
+  deleteBtn.textContent = "Delete";
+  deleteBtn.classList.add("delete-btn");
+
+  projectDiv.classList.add("inner-div");
+  projectDiv.style.backgroundColor = "white";
+  projectDiv.style.width = "100%";
+  projectDiv.append(div, deleteBtn);
+
+  return { projectDiv, div, deleteBtn, icon };
+};
+
+const renderProject = () => {
   const div = document.createElement("div");
   const icon = document.createElement("i");
   const li = document.createElement("li");
@@ -145,6 +165,7 @@ const renderDueDate = (todo, container) => {
 
 export default {
   renderDiv,
+  renderProject,
   renderProjectDiv,
   renderTodoStatus,
   renderDueDate,

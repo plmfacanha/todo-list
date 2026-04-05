@@ -199,21 +199,8 @@ const displayProjects = () => {
   projects.textContent = "";
 
   archive.projects.forEach((project) => {
-    const projectDiv = document.createElement("div");
-    const deleteBtn = document.createElement("button");
-    const { div, li, icon } = renderController.renderProjectDiv();
-
-    li.textContent = project.getProjectName();
-    div.dataset.name = li.textContent;
-    div.dataset.open = "false";
-
-    deleteBtn.textContent = "Delete";
-    deleteBtn.classList.add("delete-btn");
-
-    projectDiv.classList.add("inner-div");
-    projectDiv.style.backgroundColor = "white";
-    projectDiv.append(div, deleteBtn);
-
+    const { projectDiv, div, deleteBtn, icon } =
+      renderController.renderProjectDiv(project);
     projects.appendChild(projectDiv);
 
     eventController.bindProjectToggle(div, () => {
